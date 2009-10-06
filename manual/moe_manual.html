@@ -1,0 +1,893 @@
+<html lang="en">
+<head>
+<title>GNU Moe</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="GNU Moe">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">GNU Moe</h1>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">GNU Moe</a>
+<li><a name="toc_Introduction" href="#Introduction">1 Introduction</a>
+<li><a name="toc_Basic-concepts" href="#Basic-concepts">2 Basic concepts</a>
+<li><a name="toc_Invoking-Moe" href="#Invoking-Moe">3 Invoking Moe</a>
+<li><a name="toc_The-moerc-file" href="#The-moerc-file">4 The moerc file</a>
+<li><a name="toc_The-status-line" href="#The-status-line">5 The status line</a>
+<li><a name="toc_Keyboard-commands" href="#Keyboard-commands">6 Keyboard commands</a>
+<ul>
+<li><a href="#Function-keys">6.1 Function keys</a>
+<li><a href="#Moving-around">6.2 Moving around</a>
+<li><a href="#Inserting-text">6.3 Inserting text</a>
+<li><a href="#Search">6.4 Searching and replacing text</a>
+<li><a href="#Regexps">6.5 Syntax of regular expressions</a>
+<li><a href="#Block-commands">6.6 Block commands</a>
+<li><a href="#Exiting">6.7 Terminating your editing session</a>
+<li><a href="#Other-commands">6.8 Commands for some special functions</a>
+</li></ul>
+<li><a name="toc_Other-features" href="#Other-features">7 Other features</a>
+<li><a name="toc_Problems" href="#Problems">8 Reporting Bugs</a>
+<li><a name="toc_Concept-Index" href="#Concept-Index">Concept Index</a>
+</li></ul>
+</div>
+
+
+
+<div class="node">
+<p><hr>
+<a name="Top"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">GNU Moe</h2>
+
+<p>This manual is for GNU Moe (version 1.3, 2 September 2009).
+
+<ul class="menu">
+<li><a accesskey="1" href="#Introduction">Introduction</a>: 	Purpose and features of GNU Moe
+<li><a accesskey="2" href="#Basic-concepts">Basic concepts</a>: 	Buffers, buffer handles, files, windows, etc
+<li><a accesskey="3" href="#Invoking-Moe">Invoking Moe</a>: 	Command line interface
+<li><a accesskey="4" href="#The-moerc-file">The moerc file</a>: 	The Moe configuration file
+<li><a accesskey="5" href="#The-status-line">The status line</a>: 	Filename, position, etc
+<li><a accesskey="6" href="#Keyboard-commands">Keyboard commands</a>: 	Description of Moe's editing capabilities
+<li><a accesskey="7" href="#Other-features">Other features</a>: 	Emergency save, binary files, etc
+<li><a accesskey="8" href="#Problems">Problems</a>: 		Reporting bugs
+<li><a accesskey="9" href="#Concept-Index">Concept Index</a>: 	Index of concepts
+</ul>
+
+   <pre class="sp">
+
+</pre>
+Copyright &copy; 2005, 2006, 2007, 2008, 2009 Antonio Diaz Diaz.
+
+   <p>This manual is free documentation: you have unlimited permission
+to copy, distribute and modify it.
+
+<div class="node">
+<p><hr>
+<a name="Introduction"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Basic-concepts">Basic concepts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Introduction</h2>
+
+<p><a name="index-introduction-1"></a>
+GNU Moe is a powerful, 8-bit clean, text editor for ISO-8859 and ASCII
+character encodings. It has a modeless, user-friendly interface, online
+help, multiple windows, unlimited undo/redo capability, unlimited line
+length, global search/replace (on all buffers at once), block
+operations, automatic indentation, word wrapping, filename completion,
+directory browser, duplicate removal from prompt histories, delimiter
+matching, etc.
+
+   <p>To have Moe used as your default editor you need to set the environment
+variables `<samp><span class="samp">EDITOR=moe</span></samp>' and/or `<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
+initialization file ($HOME/.profile if you are using bash).
+
+<div class="node">
+<p><hr>
+<a name="Basic-concepts"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-Moe">Invoking Moe</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Basic concepts</h2>
+
+<p><a name="index-basic-concepts-2"></a>
+     <dl>
+<dt>Buffer<dd>The buffer is the basic editing unit; one buffer corresponds to one text
+being edited. You can have several buffers, but at any time you are
+editing only one, the `current buffer', though several buffers (or
+several parts of the same buffer) can be visible when you are using
+multiple windows.
+
+     <br><dt>Buffer handle<dd>The buffer handle is the data structure underlying a (possibly hidden)
+window. It contains the window and cursor positions in the buffer. There
+is no limit on the number of buffer handles that can refer to the same
+buffer.
+
+     <br><dt>Current line<dd>The line with the cursor.
+
+     <br><dt>File<dd>Files are named units of text which are stored by the operating system
+for you to retrieve later by name. To keep any text permanently you must
+put it in a file.
+
+     <p>When Moe loads a file, it creates a buffer, copies the contents of the
+file into the buffer, and then displays the buffer for you to edit. If
+you alter the text, you can save the new text in the file. This makes
+the changes permanent by copying the altered buffer contents back into
+the file. Until you save, the changes exist only inside Moe, and the
+loaded file remains unaltered.
+
+     <p>To create a file, just load the file as if it already existed. This
+creates an empty buffer in which you can insert the text you want to put
+in the file. The file is actually created when you save this buffer.
+
+     <br><dt>Window<dd>Moe divides the screen into one or more windows, each of which can
+display the contents of one buffer. The only limit to the number of
+windows is screen size.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Invoking-Moe"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#The-moerc-file">The moerc file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Basic-concepts">Basic concepts</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 Invoking Moe</h2>
+
+<p><a name="index-invoking-Moe-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
+The format for running Moe is:
+
+<pre class="example">     moe [<var>global-options</var>] [ [+<var>line</var>] <var>filename</var> [<var>file-options</var>] ]...
+</pre>
+   <p>Where `<samp><span class="samp">global-options</span></samp>' are a mix of editor options and default
+file-options. Use `<samp><span class="samp">-</span></samp>' as a filename to read from standard input. 
+Note that the short option names use the same letters that the options
+menu inside Moe. Most long option names have a negative form
+`<samp><span class="samp">--backup --no-backup</span></samp>'. Each filename may be preceded by
++<var>line</var> to start the cursor at the beginning of the specified line.
+
+   <p>Moe supports the following editor options:
+
+     <dl>
+<dt><code>--help</code><dt><code>-h</code><dd>Print an informative help message describing the options and exit.
+
+     <br><dt><code>--version</code><dt><code>-V</code><dd>Print the version number of Moe on the standard output and exit.
+
+     <br><dt><code>--auto-unmark</code><dt><code>-u</code><dd>Turn off highlighting after block copy or move.
+
+     <br><dt><code>--backup</code><dt><code>-b</code><dd>Create backup files (default).
+
+     <br><dt><code>--exit-ask</code><dt><code>-e</code><dd>Ask always for confirmation when closing or saving-and-closing a buffer.
+
+     <br><dt><code>--ignore-case</code><dt><code>-i</code><dd>Search in Moe is case sensitive by default. With this option you can
+make it case insensitive by default.
+
+     <br><dt><code>--indent-step=</code><var>n</var><dt><code>-n </code><var>n</var><dd>Number of spaces to add or remove when indenting or unindenting a block.
+
+     <br><dt><code>--keep-lines=</code><var>n</var><dt><code>-k </code><var>n</var><dd>Number of lines to keep for PgUp/PgDn. -1 means half window.
+
+     <br><dt><code>--max-windows=</code><var>n</var><dt><code>-m </code><var>n</var><dd>Maximum number of windows to show at once on the screen. 0 means as many
+as they fit.
+
+     <br><dt><code>--orphan</code><dt><code>-1</code><dd>Put extra files in orphaned buffers instead of in new windows.
+
+     <br><dt><code>--rectangle</code><dt><code>-x</code><dd>Turn on rectangular block mode. Provide basic rectangular block
+operations, like copy or move. This mode won't work properly if there
+are tabs in or at the left of the block.
+
+     <br><dt><code>--search-wrap</code><dt><code>-s</code><dd>Search wraps. If end of buffer is reached and no match is found, continue
+the search from the beginning of the buffer.
+
+     <br><dt><code>--smart-home</code><dt><code>-H</code><dd>Normally, when you press the home key, the cursor moves to the beginning
+of the line, and if you press it again, it remains there. With this
+option, if the cursor is at the beginning of the line and you press
+home, the cursor moves to the first non-blank character.
+
+     <pre class="sp">
+     
+     </pre>
+     Moe also supports the following file options:
+
+     <br><dt><code>--auto-indent</code><dt><code>-a</code><dd>When auto indent is enabled and you press enter, or the text wraps at
+the end of a line, the cursor moves under the first non-blank character
+of the previous line instead of at the beginning of the line.
+
+     <br><dt><code>--lmargin=</code><var>col</var><dt><code>-l </code><var>col</var><dd>Set left margin to col. The first column is column 1.
+
+     <br><dt><code>--rmargin=</code><var>col</var><dt><code>-r </code><var>col</var><dd>Set right margin to col.
+
+     <br><dt><code>--read-only</code><dt><code>-o</code><dd>Make the buffer read only.
+
+     <br><dt><code>--overwrite</code><dt><code>-O</code><dd>Disable insert mode. Typed characters replace existing ones except at
+end of line.
+
+     <br><dt><code>--word-wrap</code><dt><code>-w</code><dd>Automatically passes the current word to the next line when you type
+past the right margin.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="The-moerc-file"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#The-status-line">The status line</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-Moe">Invoking Moe</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 The moerc file</h2>
+
+<p><a name="index-the-moerc-file-7"></a>
+<samp><span class="file">moerc</span></samp> is the runtime configuration file for Moe. In it you may
+define default editor options, default file options and filename
+dependent default file options. The <samp><span class="file">moerc</span></samp> file is optional, so
+that you can run Moe from the source directory without installing it.
+
+   <p>The command line options override those specified in the <samp><span class="file">moerc</span></samp>
+file. The file options specified on the command line override those
+specified in the filename dependent options section of the <samp><span class="file">moerc</span></samp>
+file.
+
+   <p>You may copy the system <samp><span class="file">moerc</span></samp> file <samp><span class="file">${sysconfdir}/moerc</span></samp>
+to <samp><span class="file">$HOME/.moerc</span></samp> and customize these options as you like. The file
+syntax is fairly obvious and there are further instructions in it.
+
+<div class="node">
+<p><hr>
+<a name="The-status-line"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Keyboard-commands">Keyboard commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-moerc-file">The moerc file</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 The status line</h2>
+
+<p><a name="index-the-status-line-8"></a>
+The status line is a line displayed in inverse video at the top of each
+window, and contains the following information:
+
+     <ul>
+<li>The keyboard status. Shows the already typed part of a multy-key
+command. 
+<li>The status characters. `<samp><span class="samp">I</span></samp>' for insert mode, `<samp><span class="samp">O</span></samp>' for overwrite
+mode, `<samp><span class="samp">W</span></samp>' for word wrap, `<samp><span class="samp">A</span></samp>' for auto indent, `<samp><span class="samp">R</span></samp>' for
+read-only, and `<samp><span class="samp">X</span></samp>' for rectangular block mode. 
+<li>The name of the file being edited, or `<samp><span class="samp">(Unnamed)</span></samp>' if the buffer has
+not yet been named. If the buffer has been modified since it was last
+saved or opened, an asterisk `<samp><span class="samp">*</span></samp>' will be displayed before the name
+and `<samp><span class="samp">(Modified)</span></samp>' will be displayed after the name. 
+<li>The cursor position in the buffer (Line Column). 
+<li>The clock (with blinking dots). 
+<li>The help key (or the code of the character under the cursor). 
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Keyboard-commands"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Other-features">Other features</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-status-line">The status line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Keyboard commands</h2>
+
+<p><a name="index-keyboard-commands-9"></a>
+Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is
+used for harmless commands like cursor movements and scrolling. The
+&lt;Control&gt; key is used for more "dangerous" commands like copying
+text blocks, deleting lines, or exiting. The &lt;Tab&gt; key is used for
+filename completion and also shows/hides the directory browser when Moe
+asks for a filename to save or load. In any case, the unlimited
+undo/redo capability of Moe makes very difficult to accidentally cause
+an irreparable damage to your files.
+
+   <p>Moe uses the function keys, so that the most frequent commands can be
+issued with only one finger. The function key &lt;F1&gt; shows the online
+help, and &lt;F10&gt; allows you to change the options. Believe it or not,
+this paragraph and some experience with text editors is all you need to
+use Moe just as well as an expert. Forget about `<samp><span class="samp">learning curves</span></samp>';
+there is nothing to learn.
+
+   <p>The &lt;Control&gt; key is displayed in the online help as `<samp><span class="samp">^</span></samp>', while
+the &lt;Alt&gt; key is displayed as `<samp><span class="samp">^[</span></samp>'. In this manual
+<kbd>Control-a</kbd> will be written as <kbd>C-a</kbd> and <kbd>Alt-a</kbd> as
+<kbd>A-a</kbd>.
+
+   <p>Some environments "swallow" the &lt;Alt&gt; key so that it never reaches
+the application. If this happens, press the &lt;Esc&gt; key, then release
+it and press the desired key.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Function-keys">Function keys</a>: 	The most important functions are here
+<li><a accesskey="2" href="#Moving-around">Moving around</a>: 	Moving the cursor to the desired place
+<li><a accesskey="3" href="#Inserting-text">Inserting text</a>: 	Inserting text by simply typing it
+<li><a accesskey="4" href="#Search">Search</a>: 		Finding or replacing occurrences of a string
+<li><a accesskey="5" href="#Regexps">Regexps</a>: 		Syntax of regular expressions
+<li><a accesskey="6" href="#Block-commands">Block commands</a>: 	Delimiting and operating on a region of text
+<li><a accesskey="7" href="#Exiting">Exiting</a>: 		Terminating your editing session
+<li><a accesskey="8" href="#Other-commands">Other commands</a>: 	Commands for some special functions
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Function-keys"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Moving-around">Moving around</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.1 Function keys</h3>
+
+<p><a name="index-function-keys-10"></a>
+     <dl>
+<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-h</kbd><dd>Show the online help. Press &lt;Page_up&gt; to see the previous help
+screen or &lt;Page_down&gt; to see the next help screen. Press &lt;F1&gt;
+or <kbd>C-h</kbd> again to return to the editor.
+
+     <br><dt><kbd>&lt;F2&gt;</kbd><dd>Save the current buffer to a file, automatically creating any missing
+parent directories. It will ask you to confirm the filename. You may
+save the buffer with a different name, in which case the modified status
+of the buffer being edited does not change. Moe makes a backup for a
+file only the first time the file is saved from one buffer.
+
+     <br><dt><kbd>&lt;F3&gt;</kbd><dd>Load (read) a file in a new buffer. Pressing &lt;Tab&gt; shows the
+contents of the current directory, or completes the name if there is
+only one possible name to show. If the filename starts with <samp><span class="file">~/</span></samp>,
+the <samp><span class="file">~</span></samp> will be expanded to specify your home directory (tilde
+expansion).
+
+     <br><dt><kbd>&lt;F4&gt;</kbd><dd>Toggle between showing only the current window or showing as many
+windows as the screen can contain.
+
+     <br><dt><kbd>&lt;F5&gt;</kbd><dd>Select the previous window.
+
+     <br><dt><kbd>&lt;F6&gt;</kbd><dd>Select the next window.
+
+     <br><dt><kbd>&lt;F7&gt;</kbd><dd>Undo the last change made to the current buffer. You may keep undoing
+changes until there are no more changes to undo. The buffer will be then
+exactly as when it was loaded.
+
+     <br><dt><kbd>&lt;F8&gt;</kbd><dd>Redo the last change undone on the current buffer. The undo history is
+linear. That is, if you undo some changes and then make another change,
+this last change replaces the changes undone, so you can't redo them.
+
+     <br><dt><kbd>&lt;F9&gt;</kbd><dd>Copy the selected block at the cursor position. This is a convenient
+alias for the command <kbd>C-k c</kbd>.
+
+     <br><dt><kbd>&lt;F10&gt;</kbd><dd>Show the options menu. This menu allows you to change some editor-wide
+and current-buffer options, like auto indent, margins, word wrap, ask
+before exit, etc.
+
+     <br><dt><kbd>&lt;F11&gt;</kbd><dd>Show the buffers menu, a list of all the buffers being edited. This menu
+allows you to select a buffer and make it the current buffer. Some
+buffers may appear more that once in the list if they have more than one
+buffer handle. The buffer names of modified buffers will be preceded by
+an asterisk `<samp><span class="samp">*</span></samp>'.
+
+     <br><dt><kbd>&lt;F12&gt;</kbd><dd>Select the last buffer handle where you pressed &lt;F12&gt; and make its
+buffer the current buffer. This allows you to switch between two
+buffers, or between two places of the same buffer, by repeatedly
+pressing &lt;F12&gt;.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Moving-around"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Inserting-text">Inserting text</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Function-keys">Function keys</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.2 Moving around</h3>
+
+<p><a name="index-moving-around-11"></a>
+The simplest way to move the cursor to the place where you want to edit
+is with the arrow keys. Moe also provides commands to move to certain
+points in the buffer.
+
+     <dl>
+<dt><kbd>A-u</kbd><dd>Move cursor to the beginning of the buffer.
+
+     <br><dt><kbd>A-v</kbd><dd>Move cursor to the end of the buffer.
+
+     <br><dt><kbd>A-l</kbd><dd>Prompt for a line number, and then move cursor to that line. Line 1 is
+the first line.
+
+     <br><dt><kbd>A-c</kbd><dd>Prompt for a column number, and then move cursor to that column. Column
+1 is the first column.
+
+     <br><dt><kbd>A-o</kbd><dd>Prompt for an offset value, and then move cursor to the byte with that
+offset from the beginning of the buffer. The first byte in the buffer
+has offset 0.
+
+     <br><dt><kbd>A-b</kbd><dd>Move cursor to the begin of the selected block, if begin of block has
+been set and is in the current buffer.
+
+     <br><dt><kbd>A-k</kbd><dd>Move cursor to the end of the selected block, if end of block has been
+set and is in the current buffer.
+
+     <br><dt><kbd>A-f</kbd><dd>Move cursor to the matching `<samp><span class="samp">(</span></samp>', `<samp><span class="samp">[</span></samp>', `<samp><span class="samp">{</span></samp>', `<samp><span class="samp">&lt;</span></samp>',
+`<samp><span class="samp">)</span></samp>', `<samp><span class="samp">]</span></samp>', `<samp><span class="samp">}</span></samp>', `<samp><span class="samp">&gt;</span></samp>', `<samp><span class="samp">"</span></samp>', `<samp><span class="samp">'</span></samp>', `<samp><span class="samp">/*</span></samp>'
+or `<samp><span class="samp">*/</span></samp>'. Default movement is forward for undirected delimiters. If
+the cursor is not on a valid delimiter, Moe tries to guess what delimiter
+to match.
+
+     <br><dt><kbd>A-g</kbd><dd>Like <kbd>A-f</kbd>, but default movement is backward for undirected delimiters.
+
+     <br><dt><kbd>A-d</kbd><dd>Center cursor. Scroll window so that the line with the cursor is
+vertically centred.
+
+     <br><dt><kbd>A-w</kbd><dd>Scroll window backward (scroll up) leaving `<samp><span class="samp">keep-lines</span></samp>' of context,
+or half screen if `<samp><span class="samp">keep-lines</span></samp>' is -1.
+
+     <br><dt><kbd>A-z</kbd><dd>Scroll window forward (scroll down) leaving `<samp><span class="samp">keep-lines</span></samp>' of
+context, or half screen if `<samp><span class="samp">keep-lines</span></samp>' is -1.
+
+     <br><dt><kbd>A-a</kbd><dd>Scroll window left 8 columns.
+
+     <br><dt><kbd>A-s</kbd><dd>Scroll window right 8 columns.
+
+     <br><dt><kbd>C-k 0..9</kbd><dd>(<kbd>Control-k</kbd> followed by a digit from 0 to 9). 
+Set one of the 10 user bookmarks at the cursor position.
+
+     <br><dt><kbd>A-0..9</kbd><dd>(Keep the &lt;Alt&gt; key pressed while typing a digit from 0 to 9). 
+Move the cursor to one of the 10 user bookmarks.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Inserting-text"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Search">Search</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Moving-around">Moving around</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.3 Inserting text</h3>
+
+<p><a name="index-inserting-text-12"></a>
+To insert printing characters into the text you are editing, just type
+them. This inserts the characters you type into the buffer at the cursor.
+
+   <p>The &lt;Backspace&gt; key deletes the character preceding the cursor,
+while the &lt;Delete&gt; key deletes the character at cursor. You can
+delete a whole line with the <kbd>C-y</kbd> command.
+
+   <p>The &lt;Return&gt; key inserts a newline character in the buffer. If the
+cursor is in the middle of a line, &lt;Return&gt; splits the line.
+
+   <p>Moe can split lines automatically when you type past the right margin
+if you turn on word wrap in the options menu (see <a href="#Function-keys">Function keys</a>), or
+from the command line when invoking Moe.
+
+   <p>If you prefer to have text characters replace (overwrite) existing ones
+rather than being inserted among them, you can activate overwrite mode
+pressing the &lt;Insert&gt; key. Pressing again the &lt;Insert&gt; key
+activates the normal insert mode.
+
+   <p>To insert a control or special character in the buffer, use the command
+<kbd>C-p</kbd>. It will prompt for a character code in a number of formats
+and insert it at the cursor.
+
+<div class="node">
+<p><hr>
+<a name="Search"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Regexps">Regexps</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Inserting-text">Inserting text</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.4 Searching and replacing text</h3>
+
+<p><a name="index-search-13"></a>
+The <kbd>C-f</kbd> command enters search mode. It will prompt for the text to
+be searched for (the search string). The &lt;F9&gt; key will copy the
+selected block in the string being entered. &lt;F9&gt; may be also used
+when entering the replacement text.
+
+<p class="noindent">The <kbd>C-g</kbd> command repeats the previous search or replace.
+
+<p class="noindent">The <kbd>C-w</kbd> command searchs for the word at the cursor.
+
+   <p>After entering the text to be searched, Moe will prompt for search
+options. You may just hit &lt;Return&gt; to search forward with default
+options or type one or more of the following options:
+
+     <dl>
+<dt><kbd>i</kbd><dd>Ignore the case of the text being searched.
+
+     <br><dt><kbd>n</kbd><dd>Do not ignore the case of the text being searched. Use it when default
+is set to ignore case.
+
+     <br><dt><kbd>r</kbd><dd>Replace text. It will prompt for replacement text.
+
+     <br><dt><kbd>b</kbd><dd>Search backward instead of forward.
+
+     <br><dt><kbd>g</kbd><dd>Search globally. Extends the search to all the files being edited.
+
+     <br><dt><kbd>k</kbd><dd>Block search. Restricts the search to the selected block.
+
+   </dl>
+
+   <pre class="sp">
+
+</pre>
+If you chose `<samp><span class="samp">r</span></samp>' (replace) among the options above, every time the
+search string is found, you will be prompted whether to replace it with
+the replacement text. The possible answers are: <kbd>y</kbd> (yes) to replace
+and continue searching, <kbd>n</kbd> (no) to not replace this text, but
+continue searching, or <kbd>r</kbd> (rest) to replace all the remaining
+occurrences of the search string without asking for confirmation.
+
+<div class="node">
+<p><hr>
+<a name="Regexps"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Block-commands">Block commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Search">Search</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.5 Syntax of regular expressions</h3>
+
+<p><a name="index-regular-expressions-14"></a>
+Regular expressions have a syntax in which a few characters are special
+constructs and the rest are "ordinary". An ordinary character is a
+simple regular expression which matches that same character and nothing
+else. In Moe's regular expressions, all characters are ordinary
+characters except `<samp><span class="samp">\</span></samp>', which is used to indicate a special
+character or construct. Here is a list of those special constructs, also
+known as "special search sequences".
+
+     <dl>
+<dt><kbd>\\</kbd><dd>Matches a single `<samp><span class="samp">\</span></samp>'. See online help for more special characters.
+
+     <br><dt><kbd>\?</kbd><dd>Matches any single character. For example, `<samp><span class="samp">a\?b</span></samp>' will match an
+`<samp><span class="samp">a</span></samp>' followed by any character and then a `<samp><span class="samp">b</span></samp>'.
+
+     <br><dt><kbd>\*</kbd><dd>Matches zero or more characters. For example, `<samp><span class="samp">a\*b</span></samp>' will match an
+`<samp><span class="samp">a</span></samp>' followed by any number of characters and then a `<samp><span class="samp">b</span></samp>'.
+
+     <br><dt><kbd>\c</kbd><dd>This works like `<samp><span class="samp">\*</span></samp>', but matches a C/C++ balanced expression. For
+example, `<samp><span class="samp">\&lt;for\&gt;\s(\c)</span></samp>' will match any `<samp><span class="samp">for</span></samp>' loop, even if it
+includes nested parentheses.
+
+     <br><dt><kbd>\+</kbd><dd>Matches zero or more instances of the character inmediately following
+the `<samp><span class="samp">+</span></samp>'. For example, `<samp><span class="samp">\+b</span></samp>' will match any number of `<samp><span class="samp">b</span></samp>'s
+(including no `<samp><span class="samp">b</span></samp>'s). `<samp><span class="samp">\+</span></samp>' may precede `<samp><span class="samp">\[..]</span></samp>', `<samp><span class="samp">\w</span></samp>'
+or `<samp><span class="samp">\W</span></samp>', matching any number of characters from those in set
+(including the empty string). `<samp><span class="samp">\+</span></samp>' may precede itself any number of
+times, matching N-1 or more instances of the character inmediately
+following the last `<samp><span class="samp">+</span></samp>'. For example, `<samp><span class="samp">\+\+\+b</span></samp>' will match two
+or more `<samp><span class="samp">b</span></samp>'s.
+
+     <br><dt><kbd>\[..]</kbd><dd>Character set. This matches any single character between the brackets. 
+Ranges of characters may be specified by writing the starting and ending
+characters with a `<samp><span class="samp">-</span></samp>' between them. Thus, `<samp><span class="samp">\[A-Z]</span></samp>' matches any
+ASCII uppercase letter. `<samp><span class="samp">-</span></samp>' may be specified by placing it first or
+last. `<samp><span class="samp">]</span></samp>' may be specified by placing it first. If the first
+character after the left bracket is `<samp><span class="samp">^</span></samp>' indicates a "complemented
+set", which matches any character except the ones between the brackets.
+
+     <br><dt><kbd>\s</kbd><dd>Matches zero or more whitespace characters. For example, `<samp><span class="samp">a\sb</span></samp>'
+will match an `<samp><span class="samp">a</span></samp>' followed by any number of whitespace characters
+(or none) and then a `<samp><span class="samp">b</span></samp>'.
+
+     <br><dt><kbd>\S</kbd><dd>Matches the longest possible non-empty sequence of whitespace
+characters. For example, `<samp><span class="samp">a\Sb</span></samp>' will match an `<samp><span class="samp">a</span></samp>' followed by
+any positive number of whitespace characters and then a `<samp><span class="samp">b</span></samp>'.
+
+     <br><dt><kbd>\w</kbd><dd>Matches any word-constituent character (letters, digits and the
+underscore) of the ISO-8859-15 or ISO-8859-1 character encodings. Other
+ISO-8859 encodings are not supported by this command.
+
+     <br><dt><kbd>\W</kbd><dd>Matches any character that is not a word-constituent.
+
+     <br><dt><kbd>\^</kbd><dt><kbd>\$</kbd><dd>These match the beginning and end of a line. For example, `<samp><span class="samp">\^foo\$</span></samp>'
+matches `<samp><span class="samp">foo</span></samp>' on a line by itself.
+
+     <br><dt><kbd>\&lt;</kbd><dt><kbd>\&gt;</kbd><dd>These match the beginning and end of a word. For example,
+`<samp><span class="samp">\&lt;foo\*\&gt;</span></samp>' will match any whole word beginning with `<samp><span class="samp">foo</span></samp>'.
+
+   </dl>
+
+   <pre class="sp">
+
+</pre>
+And here are the special replace sequences.
+
+     <dl>
+<dt><kbd>\&amp;</kbd><dd>This is replaced with the text which matched the search string. For
+example, `<samp><span class="samp">(\&amp;)</span></samp>' will place parentheses around the matched text.
+
+     <br><dt><kbd>\l</kbd><dd>This is replaced with the text which matched the search string converted
+to lowercase. For example, `<samp><span class="samp">(\l)</span></samp>' will convert to lowercase the
+matched text and place parentheses around it.
+
+     <br><dt><kbd>\u</kbd><dd>Same as <kbd>\l</kbd>, but converts the matched text to uppercase.
+
+     <br><dt><kbd>\0 - \9</kbd><dd>(Backslash followed by a digit from 0 to 9). These are replaced with the
+text which matched the Nth special search sequence, except beginning/end
+of line/word, in the search string.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Block-commands"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Exiting">Exiting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Regexps">Regexps</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.6 Block commands</h3>
+
+<p><a name="index-block-commands-15"></a>
+Moe allows you to mark a region of text, the block, and then perform
+some operations like deleting the block, moving it to another place (in
+the same or another buffer), changing its encoding, etc. There can be
+only one block at any given time. If you begin marking a block, any
+existing block will be unmarked.
+
+   <p>Here is a list of the block operations:
+
+     <dl>
+<dt><kbd>C-&lt;Space&gt;</kbd><dd>Mark the beginning of block, or the end of block if the beginning is
+already marked. If pressed in an existing block, unmarks it.
+
+     <br><dt><kbd>C-k b</kbd><dd>Mark the beginning of block.
+
+     <br><dt><kbd>C-k k</kbd><dd>Mark the end of block.
+
+     <br><dt><kbd>C-k c</kbd><dd>Copy the block at the cursor. The text inside the original block remains
+unchanged.
+
+     <br><dt><kbd>C-k m</kbd><dd>Move the block at the cursor. The text inside the original block is
+deleted.
+
+     <br><dt><kbd>C-k y</kbd><dd>Delete the text in the block.
+
+     <br><dt><kbd>C-k r</kbd><dd>Read a block of text from a file and insert it at the cursor. This
+operation ignores rectangular block mode.
+
+     <br><dt><kbd>C-k w</kbd><dd>Write the block to a file. The text inside the original block remains
+unchanged.
+
+     <br><dt><kbd>C-k i</kbd><dd>Indent block. Add spaces at the beginning of every line in the block.
+
+     <br><dt><kbd>C-k u</kbd><dd>Unindent block. Remove spaces from the beginning of every line in the block.
+
+     <br><dt><kbd>C-o 1</kbd><dd>Encode Base64. Replace text in the block with its Base64-encoded
+equivalent data.
+
+     <br><dt><kbd>C-o 2</kbd><dd>Decode Base64. Replace Base64-encoded data in the block with its
+corresponding plain text.
+
+     <br><dt><kbd>C-o 3</kbd><dd>Encode Rot-13. Replace text in the block with its corresponding
+Rot-13-encoded text.
+
+     <br><dt><kbd>C-o 4</kbd><dd>Encode Rot-47. Replace text in the block with its corresponding
+Rot-47-encoded text.
+
+     <br><dt><kbd>C-o 6</kbd><dd>Decode Quoted-Printable. Replace Quoted-Printable-encoded text in the
+block with its corresponding plain text.
+
+     <br><dt><kbd>C-o 8</kbd><dd>Decode UTF-8. Replace UTF-8-encoded text in the block with its
+corresponding ISO-8859-15 or ISO-8859-1 plain text. Other ISO-8859
+encodings are not supported by this command.
+
+     <br><dt><kbd>C-o d</kbd><dd>Remove all duplicate lines in the block leaving the first of each set.
+
+     <br><dt><kbd>C-o e</kbd><dd>Remove all duplicate lines in the block leaving the last of each set.
+
+     <br><dt><kbd>C-o l</kbd><dd>Convert all the letters in the block to lowercase.
+
+     <br><dt><kbd>C-o u</kbd><dd>Convert all the letters in the block to uppercase.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Exiting"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Other-commands">Other commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Block-commands">Block commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.7 Terminating your editing session</h3>
+
+<p><a name="index-exiting-16"></a>
+     <dl>
+<dt><kbd>C-c</kbd><dd>Close the current window without saving any changes. If the current
+window is the only one for its buffer, and the buffer being edited has
+been modified, or `<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it
+will ask you before closing the window.
+
+     <br><dt><kbd>C-x</kbd><dd>Save the buffer being edited (if it has been modified), and then close
+the current window. If the current window is the only one for its
+buffer, and `<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it will
+ask you before saving the buffer or closing the window.
+
+     <br><dt><kbd>C-q x</kbd><dd>Save and exit. Save all the modified buffers, and then exit completely. 
+It will always ask you before saving or closing anything.
+
+     <br><dt><kbd>C-q c</kbd><dd>Exit completely without saving. It will always ask you before closing
+anything.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Other-commands"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Exiting">Exiting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.8 Commands for some special functions</h3>
+
+<p><a name="index-other-commands-17"></a>
+     <dl>
+<dt><kbd>C-b</kbd><dd>Reformat paragraph. Break it up into lines that fit between the margins.
+
+     <br><dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
+
+     <br><dt><kbd>C-p</kbd><dd>Insert a control or special character in the buffer.
+
+     <br><dt><kbd>C-y</kbd><dd>Delete the current line.
+
+     <br><dt><kbd>C-o c</kbd><dd>Centre the current line between the margins.
+
+     <br><dt><kbd>C-o n</kbd><dd>Change the name of the current buffer preserving undo history, user
+bookmarks, etc.
+
+     <br><dt><kbd>C-o r</kbd><dd>Redraw the screen.
+
+     <br><dt><kbd>C-o s</kbd><dd>Split the current window into two. The resulting windows share the same
+buffer. To undo the split just close one of the two windows with <kbd>C-c</kbd>.
+
+     <br><dt><kbd>C-q &lt;F2&gt;</kbd><dd>Save to files all the named buffers that have been modified. A named
+buffer is one with an associated filename. This function is very useful
+if you do a global replace on many buffers at once and want to save all
+the modified buffers without pressing &lt;F2&gt; a lot of times.
+
+     <br><dt><kbd>C-q u</kbd><dd>Update copyright notices in all files. For this to work, the copyright
+notice format should be `<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;Copyright_holder_name</span></samp>'<!-- /@w -->
+
+     <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show the code of the character at the cursor on
+the status line. Repeat the command to revert to normal.
+
+     <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
+buffers being edited. Really it shows the number of buffer handles, so
+the numbers may be greater than expected.
+
+     <br><dt><kbd>C-s i</kbd><dd>(Show character info). Show the line, column, position in buffer and
+code of the character at the cursor.
+
+     <br><dt><kbd>C-s v</kbd><dd>Show Moe's version.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Other-features"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Problems">Problems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Keyboard-commands">Keyboard commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">7 Other features</h2>
+
+<p><a name="index-emergency-save-18"></a><a name="index-binary-files-19"></a><a name="index-DOS-files-20"></a>
+     <dl>
+<dt>Emergency save<dd>When Moe is interrupted by an abnormal event (a SIGTERM signal for
+example), it will try to save all modified buffers in a file named
+DEADMOE in the current directory.
+
+     <br><dt>Binary files<dd>As Moe is 8-bit clean, it is able to edit binary files, though in a very
+inconvenient way. If the file does not have any newline character, all
+of it will be loaded as a single line. Use this "feature" in emergency
+cases only.
+
+     <br><dt>DOS files<dd>If Moe detects at load time that all the lines of a file are terminated
+by a CR/LF pair, assumes it is a DOS file and removes all the CRs. The
+CRs are restored later when saving the buffer to a file. If some, but
+not all, of the lines are CR/LF terminated, no action is taken and CRs
+are shown as control characters on the screen.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Problems"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Other-features">Other features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">8 Reporting Bugs</h2>
+
+<p><a name="index-bugs-21"></a><a name="index-getting-help-22"></a>
+There are probably bugs in Moe. There are certainly errors and omissions
+in this manual. If you report them, they will get fixed. If you don't,
+no one will ever know about them and they will remain unfixed for all
+eternity, if not longer.
+
+   <p>If you find a bug in Moe, please send electronic mail to
+<a href="mailto:bug-moe@gnu.org">bug-moe@gnu.org</a>. Include the version number, which you can
+find by running <code>moe&nbsp;--version</code><!-- /@w -->.
+
+<div class="node">
+<p><hr>
+<a name="Concept-Index"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Problems">Problems</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="unnumbered">Concept Index</h2>
+
+<ul class="index-cp" compact>
+<li><a href="#index-basic-concepts-2">basic concepts</a>: <a href="#Basic-concepts">Basic concepts</a></li>
+<li><a href="#index-binary-files-19">binary files</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-block-commands-15">block commands</a>: <a href="#Block-commands">Block commands</a></li>
+<li><a href="#index-bugs-21">bugs</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-DOS-files-20">DOS files</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-emergency-save-18">emergency save</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-exiting-16">exiting</a>: <a href="#Exiting">Exiting</a></li>
+<li><a href="#index-function-keys-10">function keys</a>: <a href="#Function-keys">Function keys</a></li>
+<li><a href="#index-getting-help-22">getting help</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-inserting-text-12">inserting text</a>: <a href="#Inserting-text">Inserting text</a></li>
+<li><a href="#index-introduction-1">introduction</a>: <a href="#Introduction">Introduction</a></li>
+<li><a href="#index-invoking-Moe-3">invoking Moe</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-keyboard-commands-9">keyboard commands</a>: <a href="#Keyboard-commands">Keyboard commands</a></li>
+<li><a href="#index-moving-around-11">moving around</a>: <a href="#Moving-around">Moving around</a></li>
+<li><a href="#index-options-4">options</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-other-commands-17">other commands</a>: <a href="#Other-commands">Other commands</a></li>
+<li><a href="#index-regular-expressions-14">regular expressions</a>: <a href="#Regexps">Regexps</a></li>
+<li><a href="#index-search-13">search</a>: <a href="#Search">Search</a></li>
+<li><a href="#index-the-moerc-file-7">the moerc file</a>: <a href="#The-moerc-file">The moerc file</a></li>
+<li><a href="#index-the-status-line-8">the status line</a>: <a href="#The-status-line">The status line</a></li>
+<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-version-6">version</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+   </ul></body></html>
+
