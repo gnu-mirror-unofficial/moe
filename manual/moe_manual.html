@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
 <title>GNU Moe Manual</title>
-<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
 <meta name="description" content="GNU Moe Manual">
 <meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="top" href="#Top">
@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Moe Manual</h2>
 
-<p>This manual is for GNU Moe (version 1.4, 9 January 2011).
+<p>This manual is for GNU Moe (version 1.5-pre1, 1 January 2012).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU Moe
@@ -47,7 +47,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2005, 2006, 2007, 2008, 2009, 2010, 2011
+Copyright &copy; 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012
 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
@@ -141,14 +141,15 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <p><a name="index-invoking-Moe-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
 The format for running Moe is:
 
-<pre class="example">     moe [<var>global-options</var>] [ [+<var>line</var>] <var>filename</var> [<var>file-options</var>] ]...
+<pre class="example">     moe [<var>global-options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>filename</var> [<var>file-options</var>] ]...
 </pre>
-   <p>Where `<samp><span class="samp">global-options</span></samp>' are a mix of editor options and default
-file-options. Use `<samp><span class="samp">-</span></samp>' as a filename to read from standard input. 
-Note that the short option names use the same letters that the options
-menu inside Moe. Most long option names have a negative form
+   <p>Where <var>global-options</var> are a mix of editor options and default
+<var>file-options</var>. Use `<samp><span class="samp">-</span></samp>' as a filename to read from standard
+input. Note that the short option names use the same letters that the
+options menu inside Moe. Most long option names have a negative form
 `<samp><span class="samp">--backup --no-backup</span></samp>'. Each filename may be preceded by
-+<var>line</var> to start the cursor at the beginning of the specified line.
+`<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to start the cursor at the specified
+line and, optionally, column.
 
    <p>Moe supports the following editor options:
 
@@ -160,6 +161,8 @@ menu inside Moe. Most long option names have a negative form
      <br><dt><code>-1</code><dt><code>--orphan</code><dd>Put extra files in orphaned buffers instead of in new windows.
 
      <br><dt><code>-b</code><dt><code>--backup</code><dd>Create backup files (default).
+
+     <br><dt><code>-B</code><dt><code>--no-backup</code><dd>Do not create backup files.
 
      <br><dt><code>-e</code><dt><code>--exit-ask</code><dd>Ask always for confirmation when closing or saving-and-closing a buffer.
 
@@ -185,7 +188,7 @@ continue the search from the beginning of the buffer.
 
      <br><dt><code>-x</code><dt><code>--rectangle</code><dd>Turn on rectangular block mode. Provide basic rectangular block
 operations, like copy or move. This mode won't work properly if there
-are tabs in or at the left of the block.
+are &lt;Tab&gt; characters in or at the left of the block.
 
      <pre class="sp">
      
@@ -262,7 +265,7 @@ not yet been named. If the buffer has been modified since it was last
 saved or opened, an asterisk `<samp><span class="samp">*</span></samp>' will be displayed before the name
 and `<samp><span class="samp">(Modified)</span></samp>' will be displayed after the name. 
 <li>The cursor position in the buffer (Line Column). 
-<li>The clock (with blinking dots). 
+<li>A 12-hour clock (with blinking dots and a `<samp><span class="samp">.</span></samp>' meaning PM). 
 <li>The help key (or the code of the character under the cursor). 
 </ul>
 
@@ -311,7 +314,8 @@ it and press the desired key.
 <li><a accesskey="5" href="#Regexps">Regexps</a>:              Syntax of regular expressions
 <li><a accesskey="6" href="#Block-commands">Block commands</a>:       Delimiting and operating on a region of text
 <li><a accesskey="7" href="#Exiting">Exiting</a>:              Terminating your editing session
-<li><a accesskey="8" href="#Other-commands">Other commands</a>:       Commands for some special functions
+<li><a accesskey="8" href="#Info-commands">Info commands</a>:        Commands showing help and other information
+<li><a accesskey="9" href="#Other-commands">Other commands</a>:       Commands for some special functions
 </ul>
 
 <div class="node">
@@ -704,7 +708,7 @@ encodings are not supported by this command.
 <div class="node">
 <p><hr>
 <a name="Exiting"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Other-commands">Other commands</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Info-commands">Info commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Block-commands">Block commands</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
 
@@ -734,19 +738,58 @@ anything.
 
 <div class="node">
 <p><hr>
-<a name="Other-commands"></a>
+<a name="Info-commands"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Other-commands">Other commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Exiting">Exiting</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
 
 </div>
 
-<h3 class="section">6.8 Commands for some special functions</h3>
+<h3 class="section">6.8 Commands showing help and other information</h3>
 
-<p><a name="index-other-commands-17"></a>
+<p><a name="index-info-commands-17"></a>
      <dl>
-<dt><kbd>C-b</kbd><dd>Reformat paragraph. Break it up into lines that fit between the margins.
+<dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
 
-     <br><dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
+     <br><dt><kbd>C-s 2</kbd><dt><kbd>C-s 4</kbd><dt><kbd>C-s 8</kbd><dd>(Show little-endian multibyte value). Show the little-endian value of a
+sequence of 2, 4 or 8 bytes in decimal and hexadecimal. This is useful
+for example to show things like the CRC or the file size coded in gzip
+and lzip files.
+
+     <br><dt><kbd>C-s &lt;F2&gt;</kbd><dt><kbd>C-s &lt;F4&gt;</kbd><dt><kbd>C-s &lt;F8&gt;</kbd><dd>(Show big-endian multibyte value). Show the big-endian value of a
+sequence of 2, 4 or 8 bytes in decimal and hexadecimal.
+
+     <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show the code of the character at the cursor on
+the status line. Repeat the command to revert to normal.
+
+     <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
+buffers being edited. Really it shows the number of buffer handles, so
+the numbers may be greater than expected.
+
+     <br><dt><kbd>C-s i</kbd><dd>(Show character info). Show the line, position in line, position in
+buffer (offset) and code of the character at the cursor. (The
+`<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
+line because of &lt;Tab&gt; characters in the line).
+
+     <br><dt><kbd>C-s v</kbd><dd>Show Moe's version.
+
+   </dl>
+
+<div class="node">
+<p><hr>
+<a name="Other-commands"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Info-commands">Info commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
+
+</div>
+
+<h3 class="section">6.9 Commands for some special functions</h3>
+
+<p><a name="index-other-commands-18"></a>
+     <dl>
+<dt><kbd>C-b</kbd><dd>Reformat paragraph. Break it up into lines that fit between the margins. 
+If the cursor is situated to the right of the left margin, this command
+uses the cursor column as the left margin.
 
      <br><dt><kbd>C-p</kbd><dd>Insert a control or special character in the buffer. It also accepts an
 arbitrarily large number in decimal ([1-9]...), hexadecimal (0x...) or
@@ -774,18 +817,6 @@ the modified buffers without pressing &lt;F2&gt; a lot of times.
      <br><dt><kbd>C-q u</kbd><dd>Update copyright notices in all files. For this to work, the copyright
 notice format should be `<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;Copyright_holder_name</span></samp>'<!-- /@w -->
 
-     <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show the code of the character at the cursor on
-the status line. Repeat the command to revert to normal.
-
-     <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
-buffers being edited. Really it shows the number of buffer handles, so
-the numbers may be greater than expected.
-
-     <br><dt><kbd>C-s i</kbd><dd>(Show character info). Show the line, column, position in buffer and
-code of the character at the cursor.
-
-     <br><dt><kbd>C-s v</kbd><dd>Show Moe's version.
-
    </dl>
 
 <div class="node">
@@ -799,7 +830,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">7 Other features</h2>
 
-<p><a name="index-emergency-save-18"></a><a name="index-binary-files-19"></a><a name="index-DOS-files-20"></a>
+<p><a name="index-emergency-save-19"></a><a name="index-binary-files-20"></a><a name="index-DOS-files-21"></a>
      <dl>
 <dt>Emergency save<dd>When Moe is interrupted by an abnormal event (a SIGTERM signal for
 example), it will try to save all modified buffers in a file named
@@ -828,7 +859,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">8 Reporting Bugs</h2>
 
-<p><a name="index-bugs-21"></a><a name="index-getting-help-22"></a>
+<p><a name="index-bugs-22"></a><a name="index-getting-help-23"></a>
 There are probably bugs in Moe. There are certainly errors and omissions
 in this manual. If you report them, they will get fixed. If you don't,
 no one will ever know about them and they will remain unfixed for all
@@ -850,21 +881,22 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <ul class="index-cp" compact>
 <li><a href="#index-basic-concepts-2">basic concepts</a>: <a href="#Basic-concepts">Basic concepts</a></li>
-<li><a href="#index-binary-files-19">binary files</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-binary-files-20">binary files</a>: <a href="#Other-features">Other features</a></li>
 <li><a href="#index-block-commands-15">block commands</a>: <a href="#Block-commands">Block commands</a></li>
-<li><a href="#index-bugs-21">bugs</a>: <a href="#Problems">Problems</a></li>
-<li><a href="#index-DOS-files-20">DOS files</a>: <a href="#Other-features">Other features</a></li>
-<li><a href="#index-emergency-save-18">emergency save</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-bugs-22">bugs</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-DOS-files-21">DOS files</a>: <a href="#Other-features">Other features</a></li>
+<li><a href="#index-emergency-save-19">emergency save</a>: <a href="#Other-features">Other features</a></li>
 <li><a href="#index-exiting-16">exiting</a>: <a href="#Exiting">Exiting</a></li>
 <li><a href="#index-function-keys-10">function keys</a>: <a href="#Function-keys">Function keys</a></li>
-<li><a href="#index-getting-help-22">getting help</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-getting-help-23">getting help</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-info-commands-17">info commands</a>: <a href="#Info-commands">Info commands</a></li>
 <li><a href="#index-inserting-text-12">inserting text</a>: <a href="#Inserting-text">Inserting text</a></li>
 <li><a href="#index-introduction-1">introduction</a>: <a href="#Introduction">Introduction</a></li>
 <li><a href="#index-invoking-Moe-3">invoking Moe</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
 <li><a href="#index-keyboard-commands-9">keyboard commands</a>: <a href="#Keyboard-commands">Keyboard commands</a></li>
 <li><a href="#index-moving-around-11">moving around</a>: <a href="#Moving-around">Moving around</a></li>
 <li><a href="#index-options-4">options</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
-<li><a href="#index-other-commands-17">other commands</a>: <a href="#Other-commands">Other commands</a></li>
+<li><a href="#index-other-commands-18">other commands</a>: <a href="#Other-commands">Other commands</a></li>
 <li><a href="#index-regular-expressions-14">regular expressions</a>: <a href="#Regexps">Regexps</a></li>
 <li><a href="#index-search-13">search</a>: <a href="#Search">Search</a></li>
 <li><a href="#index-the-moerc-file-7">the moerc file</a>: <a href="#The-moerc-file">The moerc file</a></li>
