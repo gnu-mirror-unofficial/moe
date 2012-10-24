@@ -30,14 +30,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Moe Manual</h2>
 
-<p>This manual is for GNU Moe (version 1.5-pre1, 1 January 2012).
+<p>This manual is for GNU Moe (version 1.5-rc1, 10 October 2012).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU Moe
 <li><a accesskey="2" href="#Basic-concepts">Basic concepts</a>:       Buffers, buffer handles, files, windows, etc
 <li><a accesskey="3" href="#Invoking-Moe">Invoking Moe</a>:         Command line interface
 <li><a accesskey="4" href="#The-moerc-file">The moerc file</a>:       The Moe configuration file
-<li><a accesskey="5" href="#The-status-line">The status line</a>:      Filename, position, etc
+<li><a accesskey="5" href="#The-status-line">The status line</a>:      File name, position, etc
 <li><a accesskey="6" href="#Keyboard-commands">Keyboard commands</a>:    Description of Moe's editing capabilities
 <li><a accesskey="7" href="#Other-features">Other features</a>:       Emergency save, binary files, etc
 <li><a accesskey="8" href="#Problems">Problems</a>:             Reporting bugs
@@ -69,7 +69,7 @@ GNU Moe is a powerful, 8-bit clean, text editor for ISO-8859 and ASCII
 character encodings. It has a modeless, user-friendly interface, online
 help, multiple windows, unlimited undo/redo capability, unlimited line
 length, global search/replace (on all buffers at once), block
-operations, automatic indentation, word wrapping, filename completion,
+operations, automatic indentation, word wrapping, file name completion,
 directory browser, duplicate removal from prompt histories, delimiter
 matching, etc.
 
@@ -95,7 +95,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
      <dl>
 <dt>Buffer<dd>The buffer is the basic editing unit; one buffer corresponds to one text
 being edited. You can have several buffers, but at any time you are
-editing only one, the `current buffer', though several buffers (or
+editing only one, the "current buffer", though several buffers (or
 several parts of the same buffer) can be visible when you are using
 multiple windows.
 
@@ -141,15 +141,18 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <p><a name="index-invoking-Moe-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
 The format for running Moe is:
 
-<pre class="example">     moe [<var>global-options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>filename</var> [<var>file-options</var>] ]...
+<pre class="example">     moe [<var>global_options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>file_name</var> [<var>file_options</var>] ]...
 </pre>
-   <p>Where <var>global-options</var> are a mix of editor options and default
-<var>file-options</var>. Use `<samp><span class="samp">-</span></samp>' as a filename to read from standard
+   <p>Where <var>global_options</var> are a mix of editor options and default
+<var>file_options</var>. Use `<samp><span class="samp">-</span></samp>' as a file name to read from standard
 input. Note that the short option names use the same letters that the
 options menu inside Moe. Most long option names have a negative form
-`<samp><span class="samp">--backup --no-backup</span></samp>'. Each filename may be preceded by
-`<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to start the cursor at the specified
-line and, optionally, column.
+`<samp><span class="samp">--backup</span></samp>' `<samp><span class="samp">--no-backup</span></samp>'.
+
+   <p>Each file name may be preceded by `<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to
+start the cursor at the specified line and, optionally, column. 
+<var>line</var> and <var>column</var> are applied to subsequent files until new
+values are specified for them.
 
    <p>Moe supports the following editor options:
 
@@ -226,14 +229,15 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p><a name="index-the-moerc-file-7"></a>
 <samp><span class="file">moerc</span></samp> is the runtime configuration file for Moe. In it you may
-define default editor options, default file options and filename
-dependent default file options. The <samp><span class="file">moerc</span></samp> file is optional, so
-that you can run Moe from the source directory without installing it.
+define default editor options, default file options and file name
+dependent options. The <samp><span class="file">moerc</span></samp> file is optional, so that you can
+run Moe from the source directory without installing it.
 
-   <p>The command line options override those specified in the <samp><span class="file">moerc</span></samp>
-file. The file options specified on the command line override those
-specified in the filename dependent options section of the <samp><span class="file">moerc</span></samp>
-file.
+   <p>The options specified in the command line override those specified in
+the <samp><span class="file">moerc</span></samp> file.
+
+   <p>Inside the <samp><span class="file">moerc</span></samp> file, file name dependent options override those
+specified as default file options.
 
    <p>You may copy the system <samp><span class="file">moerc</span></samp> file <samp><span class="file">${sysconfdir}/moerc</span></samp>
 to <samp><span class="file">$HOME/.moerc</span></samp> and customize these options as you like. The file
@@ -285,8 +289,8 @@ Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is
 used for harmless commands like cursor movements and scrolling. The
 &lt;Control&gt; key is used for more "dangerous" commands like copying
 text blocks, deleting lines, or exiting. The &lt;Tab&gt; key is used for
-filename completion and also shows/hides the directory browser when Moe
-asks for a filename to save or load. In any case, the unlimited
+file name completion and also shows/hides the directory browser when Moe
+asks for a file name to save or load. In any case, the unlimited
 undo/redo capability of Moe makes very difficult to accidentally cause
 an irreparable damage to your files.
 
@@ -335,14 +339,14 @@ screen or &lt;Page_down&gt; to see the next help screen. Press &lt;F1&gt;
 or <kbd>C-h</kbd> again to return to the editor.
 
      <br><dt><kbd>&lt;F2&gt;</kbd><dd>Save the current buffer to a file, automatically creating any missing
-parent directories. It will ask you to confirm the filename. You may
+parent directories. It will ask you to confirm the file name. You may
 save the buffer with a different name, in which case the modified status
 of the buffer being edited does not change. Moe makes a backup for a
 file only the first time the file is saved from one buffer.
 
      <br><dt><kbd>&lt;F3&gt;</kbd><dd>Load (read) a file in a new buffer. Pressing &lt;Tab&gt; shows the
 contents of the current directory, or completes the name if there is
-only one possible name to show. If the filename starts with <samp><span class="file">~/</span></samp>,
+only one possible name to show. If the file name starts with <samp><span class="file">~/</span></samp>,
 the <samp><span class="file">~</span></samp> will be expanded to specify your home directory (tilde
 expansion).
 
@@ -371,8 +375,8 @@ before exit, etc.
      <br><dt><kbd>&lt;F11&gt;</kbd><dd>Show the buffers menu, a list of all the buffers being edited. This menu
 allows you to select a buffer and make it the current buffer. Some
 buffers may appear more that once in the list if they have more than one
-buffer handle. The buffer names of modified buffers will be preceded by
-an asterisk `<samp><span class="samp">*</span></samp>'.
+buffer handle. The buffer names of modified buffers are preceded by an
+asterisk `<samp><span class="samp">*</span></samp>'.
 
      <br><dt><kbd>&lt;F12&gt;</kbd><dd>Select the last buffer handle where you pressed &lt;F12&gt; and make its
 buffer the current buffer. This allows you to switch between two
@@ -403,14 +407,17 @@ points in the buffer.
      <br><dt><kbd>A-v</kbd><dd>Move cursor to the end of the buffer.
 
      <br><dt><kbd>A-l</kbd><dd>Prompt for a line number, and then move cursor to that line. Line 1 is
-the first line.
+the first line. If the line number is preceded by a plus or minus sign,
+it is considered relative to the current line.
 
      <br><dt><kbd>A-c</kbd><dd>Prompt for a column number, and then move cursor to that column. Column
-1 is the first column.
+1 is the first column. If the column number is preceded by a plus or
+minus sign, it is considered relative to the current column.
 
      <br><dt><kbd>A-o</kbd><dd>Prompt for an offset value, and then move cursor to the byte with that
 offset from the beginning of the buffer. The first byte in the buffer
-has offset 0.
+has offset 0. If the offset value is preceded by a plus or minus sign,
+it is considered relative to the current offset.
 
      <br><dt><kbd>A-b</kbd><dd>Move cursor to the begin of the selected block, if begin of block has
 been set and is in the current buffer.
@@ -751,6 +758,11 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
      <dl>
 <dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
 
+     <br><dt><kbd>A-i</kbd><dd>(Show character info). Show the line, position in line, position in
+buffer (offset) and code of the character at the cursor. (The
+`<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
+line because of &lt;Tab&gt; characters in the line).
+
      <br><dt><kbd>C-s 2</kbd><dt><kbd>C-s 4</kbd><dt><kbd>C-s 8</kbd><dd>(Show little-endian multibyte value). Show the little-endian value of a
 sequence of 2, 4 or 8 bytes in decimal and hexadecimal. This is useful
 for example to show things like the CRC or the file size coded in gzip
@@ -765,11 +777,6 @@ the status line. Repeat the command to revert to normal.
      <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
 buffers being edited. Really it shows the number of buffer handles, so
 the numbers may be greater than expected.
-
-     <br><dt><kbd>C-s i</kbd><dd>(Show character info). Show the line, position in line, position in
-buffer (offset) and code of the character at the cursor. (The
-`<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
-line because of &lt;Tab&gt; characters in the line).
 
      <br><dt><kbd>C-s v</kbd><dd>Show Moe's version.
 
@@ -810,7 +817,7 @@ bookmarks, etc.
 buffer. To undo the split just close one of the two windows with <kbd>C-c</kbd>.
 
      <br><dt><kbd>C-q &lt;F2&gt;</kbd><dd>Save to files all the named buffers that have been modified. A named
-buffer is one with an associated filename. This function is very useful
+buffer is one with an associated file name. This function is very useful
 if you do a global replace on many buffers at once and want to save all
 the modified buffers without pressing &lt;F2&gt; a lot of times.
 
