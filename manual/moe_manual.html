@@ -3,7 +3,7 @@
 <title>GNU Moe Manual</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
 <meta name="description" content="GNU Moe Manual">
-<meta name="generator" content="makeinfo 4.8">
+<meta name="generator" content="makeinfo 4.13+">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
@@ -21,8 +21,8 @@
 </head>
 <body>
 <div class="node">
-<p><hr>
 <a name="Top"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Moe Manual</h2>
 
-<p>This manual is for GNU Moe (version 1.5, 19 February 2013).
+<p>This manual is for GNU Moe (version 1.6, 20 May 2014).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU Moe
@@ -41,21 +41,21 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <li><a accesskey="6" href="#Keyboard-commands">Keyboard commands</a>:    Description of Moe's editing capabilities
 <li><a accesskey="7" href="#Other-features">Other features</a>:       Emergency save, binary files, etc
 <li><a accesskey="8" href="#Problems">Problems</a>:             Reporting bugs
-<li><a accesskey="9" href="#Concept-Index">Concept Index</a>:        Index of concepts
+<li><a accesskey="9" href="#Concept-index">Concept index</a>:        Index of concepts
 </ul>
 
    <pre class="sp">
 
 </pre>
 Copyright &copy; 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012,
-2013 Antonio Diaz Diaz.
+2013, 2014 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
 
 <div class="node">
-<p><hr>
 <a name="Introduction"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Basic-concepts">Basic concepts</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -65,24 +65,24 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">1 Introduction</h2>
 
 <p><a name="index-introduction-1"></a>
-GNU Moe is a powerful, 8-bit clean, text editor for ISO-8859 and ASCII
-character encodings. It has a modeless, user-friendly interface, online
-help, multiple windows, unlimited undo/redo capability, unlimited line
-length, global search/replace (on all buffers at once), block
+GNU Moe is a powerful, 8-bit clean, console text editor for ISO-8859 and
+ASCII character encodings. It has a modeless, user-friendly interface,
+online help, multiple windows, unlimited undo/redo capability, unlimited
+line length, global search/replace (on all buffers at once), block
 operations, automatic indentation, word wrapping, file name completion,
 directory browser, duplicate removal from prompt histories, delimiter
 matching, etc.
 
    <p>To have Moe used as your default editor you need to set the environment
-variables `<samp><span class="samp">EDITOR=moe</span></samp>' and/or `<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
+variables '<samp><span class="samp">EDITOR=moe</span></samp>' and/or '<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
 initialization file ($HOME/.profile if you are using bash).
 
    <p>Moe needs a screen size of at least 24 lines by 80 columns. Take this
 into account if runing it from a terminal emulator.
 
 <div class="node">
-<p><hr>
 <a name="Basic-concepts"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-Moe">Invoking Moe</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -128,8 +128,8 @@ windows is screen size.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Invoking-Moe"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#The-moerc-file">The moerc file</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Basic-concepts">Basic concepts</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -144,12 +144,12 @@ The format for running Moe is:
 <pre class="example">     moe [<var>global_options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>file_name</var> [<var>file_options</var>] ]...
 </pre>
    <p>Where <var>global_options</var> are a mix of editor options and default
-<var>file_options</var>. Use `<samp><span class="samp">-</span></samp>' as a file name to read from standard
+<var>file_options</var>. Use '<samp><span class="samp">-</span></samp>' as a file name to read from standard
 input. Note that the short option names use the same letters that the
 options menu inside Moe. Most long option names have a negative form
-`<samp><span class="samp">--backup</span></samp>' `<samp><span class="samp">--no-backup</span></samp>'.
+'<samp><span class="samp">--backup</span></samp>' '<samp><span class="samp">--no-backup</span></samp>'.
 
-   <p>Each file name may be preceded by `<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to
+   <p>Each file name may be preceded by '<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to
 start the cursor at the specified line and, optionally, column. 
 <var>line</var> and <var>column</var> are applied to subsequent files until new
 values are specified for them.
@@ -216,9 +216,21 @@ past the right margin.
 
    </dl>
 
+   <p>Numbers given as arguments to command line options or editor commands
+(line, column, offset, etc) may be expressed as decimal, hexadecimal or
+octal values (using the same syntax as integer constants in C++).
+
+   <pre class="sp">
+
+</pre>
+Exit status: 0 for a normal exit, 1 for environmental problems (file not
+found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or
+invalid input file, 3 for an internal consistency error (eg, bug) which
+caused moe to panic.
+
 <div class="node">
-<p><hr>
 <a name="The-moerc-file"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#The-status-line">The status line</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-Moe">Invoking Moe</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -230,8 +242,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <p><a name="index-the-moerc-file-7"></a>
 <samp><span class="file">moerc</span></samp> is the runtime configuration file for Moe. In it you may
 define default editor options, default file options and file name
-dependent options. The <samp><span class="file">moerc</span></samp> file is optional, so that you can
-run Moe from the source directory without installing it.
+dependent options. The <samp><span class="file">moerc</span></samp> file is optional; you do not need to
+install it in order to run Moe.
 
    <p>The options specified in the command line override those specified in
 the <samp><span class="file">moerc</span></samp> file.
@@ -244,8 +256,8 @@ to <samp><span class="file">$HOME/.moerc</span></samp> and customize these optio
 syntax is fairly obvious and there are further instructions in it.
 
 <div class="node">
-<p><hr>
 <a name="The-status-line"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Keyboard-commands">Keyboard commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-moerc-file">The moerc file</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -261,21 +273,21 @@ window, and contains the following information:
      <ul>
 <li>The keyboard status. Shows the already typed part of a multy-key
 command. 
-<li>The status characters. `<samp><span class="samp">I</span></samp>' for insert mode, `<samp><span class="samp">O</span></samp>' for overwrite
-mode, `<samp><span class="samp">W</span></samp>' for word wrap, `<samp><span class="samp">A</span></samp>' for auto indent, `<samp><span class="samp">R</span></samp>' for
-read-only, and `<samp><span class="samp">X</span></samp>' for rectangular block mode. 
-<li>The name of the file being edited, or `<samp><span class="samp">(Unnamed)</span></samp>' if the buffer has
+<li>The status characters. '<samp><span class="samp">I</span></samp>' for insert mode, '<samp><span class="samp">O</span></samp>' for overwrite
+mode, '<samp><span class="samp">W</span></samp>' for word wrap, '<samp><span class="samp">A</span></samp>' for auto indent, '<samp><span class="samp">R</span></samp>' for
+read-only, and '<samp><span class="samp">X</span></samp>' for rectangular block mode. 
+<li>The name of the file being edited, or '<samp><span class="samp">(Unnamed)</span></samp>' if the buffer has
 not yet been named. If the buffer has been modified since it was last
-saved or opened, an asterisk `<samp><span class="samp">*</span></samp>' will be displayed before the name
-and `<samp><span class="samp">(Modified)</span></samp>' will be displayed after the name. 
+saved or opened, an asterisk '<samp><span class="samp">*</span></samp>' will be displayed before the name
+and '<samp><span class="samp">(Modified)</span></samp>' will be displayed after the name. 
 <li>The cursor position in the buffer (Line Column). 
-<li>A 12-hour clock (with blinking dots and a `<samp><span class="samp">.</span></samp>' meaning PM). 
+<li>A 24-hour clock (with blinking dots). 
 <li>The help key (or the code of the character under the cursor). 
 </ul>
 
 <div class="node">
-<p><hr>
 <a name="Keyboard-commands"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Other-features">Other features</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-status-line">The status line</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -298,11 +310,11 @@ an irreparable damage to your files.
 issued with only one finger. The function key &lt;F1&gt; shows the online
 help, and &lt;F10&gt; allows you to change the options. Believe it or not,
 this paragraph and some experience with text editors is all you need to
-use Moe just as well as an expert. Forget about `<samp><span class="samp">learning curves</span></samp>';
+use Moe just as well as an expert. Forget about '<samp><span class="samp">learning curves</span></samp>';
 there is nothing to learn.
 
-   <p>The &lt;Control&gt; key is displayed in the online help as `<samp><span class="samp">^</span></samp>', while
-the &lt;Alt&gt; key is displayed as `<samp><span class="samp">^[</span></samp>'. In this manual
+   <p>The &lt;Control&gt; key is displayed in the online help as '<samp><span class="samp">^</span></samp>', while
+the &lt;Alt&gt; key is displayed as '<samp><span class="samp">^[</span></samp>'. In this manual
 <kbd>Control-a</kbd> will be written as <kbd>C-a</kbd> and <kbd>Alt-a</kbd> as
 <kbd>A-a</kbd>.
 
@@ -323,8 +335,8 @@ it and press the desired key.
 </ul>
 
 <div class="node">
-<p><hr>
 <a name="Function-keys"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Moving-around">Moving around</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
 
@@ -375,8 +387,10 @@ before exit, etc.
      <br><dt><kbd>&lt;F11&gt;</kbd><dd>Show the buffers menu, a list of all the buffers being edited. This menu
 allows you to select a buffer and make it the current buffer. Some
 buffers may appear more that once in the list if they have more than one
-buffer handle. The buffer names of modified buffers are preceded by an
-asterisk `<samp><span class="samp">*</span></samp>'.
+buffer handle. The names of modified buffers are preceded by an asterisk
+'<samp><span class="samp">*</span></samp>'. The names of DOS buffers are preceded by a minus sign
+'<samp><span class="samp">-</span></samp>'. The names of modified DOS buffers are preceded by a plus sign
+'<samp><span class="samp">+</span></samp>'.
 
      <br><dt><kbd>&lt;F12&gt;</kbd><dd>Select the last buffer handle where you pressed &lt;F12&gt; and make its
 buffer the current buffer. This allows you to switch between two
@@ -386,8 +400,8 @@ pressing &lt;F12&gt;.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Moving-around"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Inserting-text">Inserting text</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Function-keys">Function keys</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -425,22 +439,22 @@ been set and is in the current buffer.
      <br><dt><kbd>A-k</kbd><dd>Move cursor to the end of the selected block, if end of block has been
 set and is in the current buffer.
 
-     <br><dt><kbd>A-f</kbd><dd>Move cursor to the matching `<samp><span class="samp">(</span></samp>', `<samp><span class="samp">[</span></samp>', `<samp><span class="samp">{</span></samp>', `<samp><span class="samp">&lt;</span></samp>',
-`<samp><span class="samp">)</span></samp>', `<samp><span class="samp">]</span></samp>', `<samp><span class="samp">}</span></samp>', `<samp><span class="samp">&gt;</span></samp>', `<samp><span class="samp">"</span></samp>', `<samp><span class="samp">'</span></samp>', `<samp><span class="samp">/*</span></samp>'
-or `<samp><span class="samp">*/</span></samp>'. Default movement is forward for undirected delimiters. If
-the cursor is not on a valid delimiter, Moe tries to guess what delimiter
-to match.
+     <br><dt><kbd>A-f</kbd><dd>Move cursor to the matching '<samp><span class="samp">(</span></samp>', '<samp><span class="samp">[</span></samp>', '<samp><span class="samp">{</span></samp>', '<samp><span class="samp">&lt;</span></samp>',
+'<samp><span class="samp">)</span></samp>', '<samp><span class="samp">]</span></samp>', '<samp><span class="samp">}</span></samp>', '<samp><span class="samp">&gt;</span></samp>', '<samp><span class="samp">"</span></samp>', '<samp><span class="samp">'</span></samp>', '<samp><span class="samp">`</span></samp>',
+'<samp><span class="samp">/*</span></samp>' or '<samp><span class="samp">*/</span></samp>'. Default movement is forward for undirected
+delimiters. If the cursor is not on a valid delimiter, Moe tries to
+guess what delimiter to match.
 
      <br><dt><kbd>A-g</kbd><dd>Like <kbd>A-f</kbd>, but default movement is backward for undirected delimiters.
 
      <br><dt><kbd>A-d</kbd><dd>Center cursor. Scroll window so that the line with the cursor is
 vertically centred.
 
-     <br><dt><kbd>A-w</kbd><dd>Scroll window backward (scroll up) leaving `<samp><span class="samp">keep-lines</span></samp>' of context,
-or half screen if `<samp><span class="samp">keep-lines</span></samp>' is -1.
+     <br><dt><kbd>A-w</kbd><dd>Scroll window backward (scroll up) leaving '<samp><span class="samp">keep-lines</span></samp>' of context,
+or half screen if '<samp><span class="samp">keep-lines</span></samp>' is -1.
 
-     <br><dt><kbd>A-z</kbd><dd>Scroll window forward (scroll down) leaving `<samp><span class="samp">keep-lines</span></samp>' of
-context, or half screen if `<samp><span class="samp">keep-lines</span></samp>' is -1.
+     <br><dt><kbd>A-z</kbd><dd>Scroll window forward (scroll down) leaving '<samp><span class="samp">keep-lines</span></samp>' of
+context, or half screen if '<samp><span class="samp">keep-lines</span></samp>' is -1.
 
      <br><dt><kbd>A-a</kbd><dd>Scroll window left 8 columns.
 
@@ -452,11 +466,14 @@ Set one of the 10 user bookmarks at the cursor position.
      <br><dt><kbd>A-0..9</kbd><dd>(Keep the &lt;Alt&gt; key pressed while typing a digit from 0 to 9). 
 Move the cursor to one of the 10 user bookmarks.
 
+     <br><dt><kbd>C-k e</kbd><dd>Extend bookmarks. Set the user bookmarks 1..9 that were not previously
+set at lines 100..900.
+
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Inserting-text"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Search">Search</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Moving-around">Moving around</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -490,8 +507,8 @@ activates the normal insert mode.
 and insert it at the cursor.
 
 <div class="node">
-<p><hr>
 <a name="Search"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Regexps">Regexps</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Inserting-text">Inserting text</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -524,16 +541,13 @@ is set to ignore case.
 
      <br><dt><kbd>b</kbd><dd>Search backward instead of forward.
 
-     <br><dt><kbd>g</kbd><dd>Search globally. Extends the search to all the files being edited.
+     <br><dt><kbd>g</kbd><dd>Search globally. Extends the search to all the buffers being edited.
 
      <br><dt><kbd>k</kbd><dd>Block search. Restricts the search to the selected block.
 
    </dl>
 
-   <pre class="sp">
-
-</pre>
-If you chose `<samp><span class="samp">r</span></samp>' (replace) among the options above, every time the
+   <p>If you chose '<samp><span class="samp">r</span></samp>' (replace) among the options above, every time the
 search string is found, you will be prompted whether to replace it with
 the replacement text. The possible answers are: <kbd>y</kbd> (yes) to replace
 and continue searching, <kbd>n</kbd> (no) to not replace this text, but
@@ -541,8 +555,8 @@ continue searching, or <kbd>r</kbd> (rest) to replace all the remaining
 occurrences of the search string without asking for confirmation.
 
 <div class="node">
-<p><hr>
 <a name="Regexps"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Block-commands">Block commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Search">Search</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -556,47 +570,47 @@ Regular expressions have a syntax in which a few characters are special
 constructs and the rest are "ordinary". An ordinary character is a
 simple regular expression which matches that same character and nothing
 else. In Moe's regular expressions, all characters are ordinary
-characters except `<samp><span class="samp">\</span></samp>', which is used to indicate a special
+characters except '<samp><span class="samp">\</span></samp>', which is used to indicate a special
 character or construct. Here is a list of those special constructs, also
 known as "special search sequences".
 
      <dl>
-<dt><kbd>\\</kbd><dd>Matches a single `<samp><span class="samp">\</span></samp>'. See online help for more special characters.
+<dt><kbd>\\</kbd><dd>Matches a single '<samp><span class="samp">\</span></samp>'. See online help for more special characters.
 
-     <br><dt><kbd>\?</kbd><dd>Matches any single character. For example, `<samp><span class="samp">a\?b</span></samp>' will match an
-`<samp><span class="samp">a</span></samp>' followed by any character and then a `<samp><span class="samp">b</span></samp>'.
+     <br><dt><kbd>\?</kbd><dd>Matches any single character. For example, '<samp><span class="samp">a\?b</span></samp>' will match an
+'<samp><span class="samp">a</span></samp>' followed by any character and then a '<samp><span class="samp">b</span></samp>'.
 
-     <br><dt><kbd>\*</kbd><dd>Matches zero or more characters. For example, `<samp><span class="samp">a\*b</span></samp>' will match an
-`<samp><span class="samp">a</span></samp>' followed by any number of characters and then a `<samp><span class="samp">b</span></samp>'.
+     <br><dt><kbd>\*</kbd><dd>Matches zero or more characters. For example, '<samp><span class="samp">a\*b</span></samp>' will match an
+'<samp><span class="samp">a</span></samp>' followed by any number of characters and then a '<samp><span class="samp">b</span></samp>'.
 
-     <br><dt><kbd>\c</kbd><dd>This works like `<samp><span class="samp">\*</span></samp>', but matches a C/C++ balanced expression. For
-example, `<samp><span class="samp">\&lt;for\&gt;\s(\c)</span></samp>' will match any `<samp><span class="samp">for</span></samp>' loop, even if it
+     <br><dt><kbd>\c</kbd><dd>This works like '<samp><span class="samp">\*</span></samp>', but matches a C/C++ balanced expression. For
+example, '<samp><span class="samp">\&lt;for\&gt;\s(\c)</span></samp>' will match any '<samp><span class="samp">for</span></samp>' loop, even if it
 includes nested parentheses.
 
      <br><dt><kbd>\+</kbd><dd>Matches zero or more instances of the character inmediately following
-the `<samp><span class="samp">+</span></samp>'. For example, `<samp><span class="samp">\+b</span></samp>' will match any number of `<samp><span class="samp">b</span></samp>'s
-(including no `<samp><span class="samp">b</span></samp>'s). `<samp><span class="samp">\+</span></samp>' may precede `<samp><span class="samp">\[..]</span></samp>', `<samp><span class="samp">\w</span></samp>'
-or `<samp><span class="samp">\W</span></samp>', matching any number of characters from those in set
-(including the empty string). `<samp><span class="samp">\+</span></samp>' may precede itself any number of
+the '<samp><span class="samp">+</span></samp>'. For example, '<samp><span class="samp">\+b</span></samp>' will match any number of '<samp><span class="samp">b</span></samp>'s
+(including no '<samp><span class="samp">b</span></samp>'s). '<samp><span class="samp">\+</span></samp>' may precede '<samp><span class="samp">\[..]</span></samp>', '<samp><span class="samp">\w</span></samp>'
+or '<samp><span class="samp">\W</span></samp>', matching any number of characters from those in set
+(including the empty string). '<samp><span class="samp">\+</span></samp>' may precede itself any number of
 times, matching N-1 or more instances of the character inmediately
-following the last `<samp><span class="samp">+</span></samp>'. For example, `<samp><span class="samp">\+\+\+b</span></samp>' will match two
-or more `<samp><span class="samp">b</span></samp>'s.
+following the last '<samp><span class="samp">+</span></samp>'. For example, '<samp><span class="samp">\+\+\+b</span></samp>' will match two
+or more '<samp><span class="samp">b</span></samp>'s.
 
      <br><dt><kbd>\[..]</kbd><dd>Character set. This matches any single character between the brackets. 
 Ranges of characters may be specified by writing the starting and ending
-characters with a `<samp><span class="samp">-</span></samp>' between them. Thus, `<samp><span class="samp">\[A-Z]</span></samp>' matches any
-ASCII uppercase letter. `<samp><span class="samp">-</span></samp>' may be specified by placing it first or
-last. `<samp><span class="samp">]</span></samp>' may be specified by placing it first. If the first
-character after the left bracket is `<samp><span class="samp">^</span></samp>' indicates a "complemented
+characters with a '<samp><span class="samp">-</span></samp>' between them. Thus, '<samp><span class="samp">\[A-Z]</span></samp>' matches any
+ASCII uppercase letter. '<samp><span class="samp">-</span></samp>' may be specified by placing it first or
+last. '<samp><span class="samp">]</span></samp>' may be specified by placing it first. If the first
+character after the left bracket is '<samp><span class="samp">^</span></samp>' indicates a "complemented
 set", which matches any character except the ones between the brackets.
 
-     <br><dt><kbd>\s</kbd><dd>Matches zero or more whitespace characters. For example, `<samp><span class="samp">a\sb</span></samp>'
-will match an `<samp><span class="samp">a</span></samp>' followed by any number of whitespace characters
-(or none) and then a `<samp><span class="samp">b</span></samp>'.
+     <br><dt><kbd>\s</kbd><dd>Matches zero or more whitespace characters. For example, '<samp><span class="samp">a\sb</span></samp>'
+will match an '<samp><span class="samp">a</span></samp>' followed by any number of whitespace characters
+(or none) and then a '<samp><span class="samp">b</span></samp>'.
 
      <br><dt><kbd>\S</kbd><dd>Matches the longest possible non-empty sequence of whitespace
-characters. For example, `<samp><span class="samp">a\Sb</span></samp>' will match an `<samp><span class="samp">a</span></samp>' followed by
-any positive number of whitespace characters and then a `<samp><span class="samp">b</span></samp>'.
+characters. For example, '<samp><span class="samp">a\Sb</span></samp>' will match an '<samp><span class="samp">a</span></samp>' followed by
+any positive number of whitespace characters and then a '<samp><span class="samp">b</span></samp>'.
 
      <br><dt><kbd>\w</kbd><dd>Matches any word-constituent character (letters, digits and the
 underscore) of the ISO-8859-15 or ISO-8859-1 character encodings. Other
@@ -604,29 +618,26 @@ ISO-8859 encodings are not supported by this command.
 
      <br><dt><kbd>\W</kbd><dd>Matches any character that is not a word-constituent.
 
-     <br><dt><kbd>\^</kbd><dt><kbd>\$</kbd><dd>These match the beginning and end of a line. For example, `<samp><span class="samp">\^foo\$</span></samp>'
-matches `<samp><span class="samp">foo</span></samp>' on a line by itself.
+     <br><dt><kbd>\^</kbd><dt><kbd>\$</kbd><dd>These match the beginning and end of a line. For example, '<samp><span class="samp">\^foo\$</span></samp>'
+matches '<samp><span class="samp">foo</span></samp>' on a line by itself.
 
      <br><dt><kbd>\&lt;</kbd><dt><kbd>\&gt;</kbd><dd>These match the beginning and end of a word. For example,
-`<samp><span class="samp">\&lt;foo\*\&gt;</span></samp>' will match any whole word beginning with `<samp><span class="samp">foo</span></samp>'.
+'<samp><span class="samp">\&lt;foo\*\&gt;</span></samp>' will match any whole word beginning with '<samp><span class="samp">foo</span></samp>'.
 
    </dl>
 
-   <pre class="sp">
-
-</pre>
-And here are the special replace sequences.
+   <p>And here are the special replace sequences.
 
      <dl>
 <dt><kbd>\&amp;</kbd><dd>This is replaced with the text which matched the search string. For
-example, `<samp><span class="samp">(\&amp;)</span></samp>' will place parentheses around the matched text.
+example, '<samp><span class="samp">(\&amp;)</span></samp>' will place parentheses around the matched text.
 
      <br><dt><kbd>\c</kbd><dd>This is replaced with the text which matched the search string
 capitalized; the first letter of each word is uppercased and the rest
 are lowercased.
 
      <br><dt><kbd>\l</kbd><dd>This is replaced with the text which matched the search string converted
-to lowercase. For example, `<samp><span class="samp">(\l)</span></samp>' will convert to lowercase the
+to lowercase. For example, '<samp><span class="samp">(\l)</span></samp>' will convert to lowercase the
 matched text and place parentheses around it.
 
      <br><dt><kbd>\u</kbd><dd>Same as <kbd>\l</kbd>, but converts the matched text to uppercase.
@@ -638,8 +649,8 @@ of line/word, in the search string.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Block-commands"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Exiting">Exiting</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Regexps">Regexps</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -687,7 +698,8 @@ unchanged.
 equivalent data.
 
      <br><dt><kbd>C-o 2</kbd><dd>Decode Base64. Replace Base64-encoded data in the block with its
-corresponding plain text.
+corresponding plain text. In case of error, the cursor is moved to the
+first byte of the invalid 4-byte group.
 
      <br><dt><kbd>C-o 3</kbd><dd>Encode Rot-13. Replace text in the block with its corresponding
 Rot-13-encoded text.
@@ -696,11 +708,17 @@ Rot-13-encoded text.
 Rot-47-encoded text.
 
      <br><dt><kbd>C-o 6</kbd><dd>Decode Quoted-Printable. Replace Quoted-Printable-encoded text in the
-block with its corresponding plain text.
+block with its corresponding plain text. In case of error, the cursor is
+moved to the invalid character.
+
+     <br><dt><kbd>C-o 7</kbd><dd>Encode UTF-8. Replace the ISO-8859-15 plain text in the block with its
+corresponding UTF-8-encoded text. Other ISO-8859 encodings are not
+supported by this command.
 
      <br><dt><kbd>C-o 8</kbd><dd>Decode UTF-8. Replace UTF-8-encoded text in the block with its
 corresponding ISO-8859-15 or ISO-8859-1 plain text. Other ISO-8859
-encodings are not supported by this command.
+encodings are not supported by this command. In case of error, the
+cursor is moved to the first byte of the invalid UTF-8 character.
 
      <br><dt><kbd>C-o d</kbd><dd>Remove all duplicate lines in the block leaving the first of each set.
 
@@ -713,8 +731,8 @@ encodings are not supported by this command.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Exiting"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Info-commands">Info commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Block-commands">Block commands</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -727,25 +745,25 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
      <dl>
 <dt><kbd>C-c</kbd><dd>Close the current window without saving any changes. If the current
 window is the only one for its buffer, and the buffer being edited has
-been modified, or `<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it
+been modified, or '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it
 will ask you before closing the window.
 
      <br><dt><kbd>C-x</kbd><dd>Save the buffer being edited (if it has been modified), and then close
 the current window. If the current window is the only one for its
-buffer, and `<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it will
+buffer, and '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it will
 ask you before saving the buffer or closing the window.
-
-     <br><dt><kbd>C-q x</kbd><dd>Save and exit. Save all the modified buffers, and then exit completely. 
-It will always ask you before saving or closing anything.
 
      <br><dt><kbd>C-q c</kbd><dd>Exit completely without saving. It will always ask you before closing
 anything.
 
+     <br><dt><kbd>C-q x</kbd><dd>Save and exit. Save all the modified buffers, and then exit completely. 
+It will always ask you before saving or closing anything.
+
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Info-commands"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Other-commands">Other commands</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Exiting">Exiting</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
@@ -760,8 +778,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
      <br><dt><kbd>A-i</kbd><dd>(Show character info). Show the line, position in line, position in
 buffer (offset) and code of the character at the cursor. (The
-`<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
+'<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
 line because of &lt;Tab&gt; characters in the line).
+
+     <br><dt><kbd>A-t</kbd><dd>(Show UTF-8 code). Show the UTF-8 code of the multibyte character at the
+cursor. If the code is valid, the cursor is moved to the first byte of
+the character.
 
      <br><dt><kbd>C-s 2</kbd><dt><kbd>C-s 4</kbd><dt><kbd>C-s 8</kbd><dd>(Show little-endian multibyte value). Show the little-endian value of a
 sequence of 2, 4 or 8 bytes in decimal and hexadecimal. This is useful
@@ -783,8 +805,8 @@ the numbers may be greater than expected.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Other-commands"></a>
+<p><hr>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Info-commands">Info commands</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</a>
 
@@ -801,7 +823,7 @@ uses the cursor column as the left margin.
      <br><dt><kbd>C-p</kbd><dd>Insert a control or special character in the buffer. It also accepts an
 arbitrarily large number in decimal ([1-9]...), hexadecimal (0x...) or
 octal (0...), and inserts it as a little-endian sequence of binary
-characters. If the number is followed by `<samp><span class="samp">+</span></samp>', a big-endian sequence
+characters. If the number is followed by '<samp><span class="samp">+</span></samp>', a big-endian sequence
 is inserted instead.
 
      <br><dt><kbd>C-y</kbd><dd>Delete the current line.
@@ -821,14 +843,14 @@ buffer is one with an associated file name. This function is very useful
 if you do a global replace on many buffers at once and want to save all
 the modified buffers without pressing &lt;F2&gt; a lot of times.
 
-     <br><dt><kbd>C-q u</kbd><dd>Update copyright notices in all files. For this to work, the copyright
-notice format should be `<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;Copyright_holder_name</span></samp>'<!-- /@w -->
+     <br><dt><kbd>C-q u</kbd><dd>Update copyright notices in all buffers. For this to work, the copyright
+notice format should be '<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;Copyright_holder_name</span></samp>'<!-- /@w -->
 
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Other-features"></a>
+<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Problems">Problems</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Keyboard-commands">Keyboard commands</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
@@ -856,15 +878,15 @@ are shown as control characters on the screen.
    </dl>
 
 <div class="node">
-<p><hr>
 <a name="Problems"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-index">Concept index</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Other-features">Other features</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">8 Reporting Bugs</h2>
+<h2 class="chapter">8 Reporting bugs</h2>
 
 <p><a name="index-bugs-22"></a><a name="index-getting-help-23"></a>
 There are probably bugs in Moe. There are certainly errors and omissions
@@ -877,14 +899,14 @@ eternity, if not longer.
 find by running <code>moe&nbsp;--version</code><!-- /@w -->.
 
 <div class="node">
+<a name="Concept-index"></a>
 <p><hr>
-<a name="Concept-Index"></a>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Problems">Problems</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="unnumbered">Concept Index</h2>
+<h2 class="unnumbered">Concept index</h2>
 
 <ul class="index-cp" compact>
 <li><a href="#index-basic-concepts-2">basic concepts</a>: <a href="#Basic-concepts">Basic concepts</a></li>
@@ -912,3 +934,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-version-6">version</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
 </ul></body></html>
 
+<!--
+
+Local Variables:
+coding: iso-8859-15
+End:
+
+-->
