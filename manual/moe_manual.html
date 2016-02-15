@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Moe Manual</h2>
 
-<p>This manual is for GNU Moe (version 1.7, 4 May 2015).
+<p>This manual is for GNU Moe (version 1.8, 24 January 2016).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU Moe
@@ -48,7 +48,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2005-2015 Antonio Diaz Diaz.
+Copyright &copy; 2005-2016 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -74,8 +74,8 @@ directory browser, duplicate removal from prompt histories, delimiter
 matching, text conversion from/to UTF-8, romanization, etc.
 
    <p>UTF-8 is a great tool for tasks like writing books of mathematics or
-mixing Greek with Chinese in the same document, but for many other
-everyday computing and communication tasks an 8-bit code like
+mixing Greek with Chinese in the same document. But for many other
+everyday computing and communication tasks, an 8-bit code like
 ISO-8859-15 is much more practical, efficient and reliable. There is no
 such thing as an "invalid" or "out of range" ISO-8859-15 character.
 
@@ -163,6 +163,11 @@ start the cursor at the specified line and, optionally, column.
 <var>line</var> and <var>column</var> are applied to subsequent files until new
 values are specified for them.
 
+   <p>Moe is able to read some types of non regular files at startup. Opening
+non regular files during the editing session is not allowed because it
+could cause moe to be killed, losing the changes of any other files
+being edited.
+
    <p>Moe supports the following editor options:
 
      <dl>
@@ -174,7 +179,7 @@ values are specified for them.
 
      <br><dt><code>-b</code><dt><code>--backup</code><dd>Create backup files (default).
 
-     <br><dt><code>-B</code><dt><code>--no-backup</code><dd>Do not create backup files.
+     <br><dt><code>-B</code><dt><code>--no-backup</code><dd>Don't create backup files.
 
      <br><dt><code>-e</code><dt><code>--exit-ask</code><dd>Ask always for confirmation when closing or saving-and-closing a buffer.
 
@@ -251,7 +256,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <p><a name="index-the-moerc-file-7"></a>
 <samp><span class="file">moerc</span></samp> is the runtime configuration file for Moe. In it you may
 define default editor options, default file options and file name
-dependent options. The <samp><span class="file">moerc</span></samp> file is optional; you do not need to
+dependent options. The <samp><span class="file">moerc</span></samp> file is optional; you don't need to
 install it in order to run Moe.
 
    <p>The options specified in the command line override those specified in
@@ -544,8 +549,8 @@ options or type one or more of the following options:
      <dl>
 <dt><kbd>i</kbd><dd>Ignore the case of the text being searched.
 
-     <br><dt><kbd>n</kbd><dd>Do not ignore the case of the text being searched. Use it when default
-is set to ignore case.
+     <br><dt><kbd>n</kbd><dd>Don't ignore the case of the text being searched. Use it when default is
+set to ignore case.
 
      <br><dt><kbd>r</kbd><dd>Replace text. It will prompt for replacement text.
 
@@ -943,7 +948,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
      <dl>
 <dt>Emergency save<dd>When Moe is interrupted by an abnormal event (a SIGTERM signal for
 example), it will try to save all modified buffers in a file named
-DEADMOE in the current directory.
+<samp><span class="file">DEADMOE</span></samp> in the current directory.
 
      <br><dt>Basic '<samp><span class="samp">less</span></samp>' emulation<dd>In read-only buffers the space bar moves forward leaving 1 line of
 context, '<samp><span class="samp">/</span></samp>' acts as '<samp><span class="samp">Find</span></samp>', and '<samp><span class="samp">n</span></samp>' as '<samp><span class="samp">Find&nbsp;next</span></samp>'<!-- /@w -->.
