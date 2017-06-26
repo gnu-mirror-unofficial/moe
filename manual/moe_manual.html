@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
-<title>GNU Moe Manual</title>
+<title>GNU moe Manual</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
-<meta name="description" content="GNU Moe Manual">
+<meta name="description" content="GNU moe Manual">
 <meta name="generator" content="makeinfo 4.13+">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
@@ -28,17 +28,17 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 </div>
 
-<h2 class="unnumbered">GNU Moe Manual</h2>
+<h2 class="unnumbered">GNU moe Manual</h2>
 
-<p>This manual is for GNU Moe (version 1.8, 20 June 2016).
+<p>This manual is for GNU moe (version 1.9, 2 June 2017).
 
 <ul class="menu">
-<li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU Moe
+<li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU moe
 <li><a accesskey="2" href="#Basic-concepts">Basic concepts</a>:       Buffers, buffer handles, files, windows, etc
-<li><a accesskey="3" href="#Invoking-Moe">Invoking Moe</a>:         Command line interface
-<li><a accesskey="4" href="#The-moerc-file">The moerc file</a>:       The Moe configuration file
+<li><a accesskey="3" href="#Invoking-moe">Invoking moe</a>:         Command line interface
+<li><a accesskey="4" href="#The-moerc-file">The moerc file</a>:       The moe configuration file
 <li><a accesskey="5" href="#The-status-line">The status line</a>:      File name, position, etc
-<li><a accesskey="6" href="#Keyboard-commands">Keyboard commands</a>:    Description of Moe's editing capabilities
+<li><a accesskey="6" href="#Keyboard-commands">Keyboard commands</a>:    Description of moe's editing capabilities
 <li><a accesskey="7" href="#Romanization">Romanization</a>:         Transliterating Cyrillic, Greek, etc, to Latin
 <li><a accesskey="8" href="#Other-features">Other features</a>:       Emergency save, binary files, etc
 <li><a accesskey="9" href="#Problems">Problems</a>:             Reporting bugs
@@ -48,7 +48,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2005-2016 Antonio Diaz Diaz.
+Copyright &copy; 2005-2017 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -65,13 +65,19 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">1 Introduction</h2>
 
 <p><a name="index-introduction-1"></a>
-GNU Moe is a powerful, 8-bit clean, console text editor for ISO-8859 and
+GNU moe is a powerful, 8-bit clean, console text editor for ISO-8859 and
 ASCII character encodings. It has a modeless, user-friendly interface,
 online help, multiple windows, unlimited undo/redo capability, unlimited
-line length, global search/replace (on all buffers at once), block
-operations, automatic indentation, word wrapping, file name completion,
-directory browser, duplicate removal from prompt histories, delimiter
-matching, text conversion from/to UTF-8, romanization, etc.
+line length, unlimited buffers, global search/replace (on all buffers at
+once), block operations, automatic indentation, word wrapping, file name
+completion, directory browser, duplicate removal from prompt histories,
+delimiter matching, text conversion from/to UTF-8, romanization, etc.
+
+   <p>Moe can easily edit thousands of files at the same time.
+
+   <p>Moe uses ISO-8859-15 instead of UTF-8 because an 8-bit character set
+(combined with romanization if needed) can convey meaning safely and
+more efficiently than UTF-8 can.
 
    <p>UTF-8 is a great tool for tasks like writing books of mathematics or
 mixing Greek with Chinese in the same document. But for many other
@@ -79,7 +85,16 @@ everyday computing and communication tasks, an 8-bit code like
 ISO-8859-15 is much more practical, efficient and reliable. There is no
 such thing as an "invalid" or "out of range" ISO-8859-15 character.
 
-   <p>To have Moe used as your default editor you need to set the environment
+   <p>UTF-8 is fine for non-parsable, non-searchable documents that must look
+"pretty", but not so fine for things like configuration files or C++
+source code. UTF-8 greatly hinders parsability (and may even become a
+security risk) by providing multiple similar-looking variations of basic
+alphabetic, punctuation, and quoting characters. UTF-8 also makes search
+difficult and unreliable. For example, searching for a word like "file"
+in an UTF-8 document may fail if the document uses the compound
+character 'fi' instead of the string "fi".
+
+   <p>To have moe used as your default editor you need to set the environment
 variables '<samp><span class="samp">EDITOR=moe</span></samp>' and/or '<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
 initialization file ($HOME/.profile if you are using bash).
 
@@ -92,7 +107,7 @@ into account if running it from a terminal emulator.
 <div class="node">
 <a name="Basic-concepts"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-Moe">Invoking Moe</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-moe">Invoking moe</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
@@ -119,11 +134,11 @@ buffer.
 for you to retrieve later by name. To keep any text permanently you must
 put it in a file.
 
-     <p>When Moe loads a file, it creates a buffer, copies the contents of the
+     <p>When moe loads a file, it creates a buffer, copies the contents of the
 file into the buffer, and then displays the buffer for you to edit. If
 you alter the text, you can save the new text in the file. This makes
 the changes permanent by copying the altered buffer contents back into
-the file. Until you save, the changes exist only inside Moe, and the
+the file. Until you save, the changes exist only inside moe, and the
 loaded file remains unaltered.
 
      <p>To create a file, just load the file as if it already existed. This
@@ -137,7 +152,7 @@ windows is screen size.
    </dl>
 
 <div class="node">
-<a name="Invoking-Moe"></a>
+<a name="Invoking-moe"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#The-moerc-file">The moerc file</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Basic-concepts">Basic concepts</a>,
@@ -145,23 +160,35 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">3 Invoking Moe</h2>
+<h2 class="chapter">3 Invoking moe</h2>
 
-<p><a name="index-invoking-Moe-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
-The format for running Moe is:
+<p><a name="index-invoking-moe-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
+The format for running moe is:
 
-<pre class="example">     moe [<var>global_options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>file_name</var> [<var>file_options</var>] ]...
+<pre class="example">     moe [<var>global_options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>file</var> [<var>file_options</var>] ]...
 </pre>
-   <p>Where <var>global_options</var> are a mix of editor options and default
-<var>file_options</var>. Use '<samp><span class="samp">-</span></samp>' as a file name to read from standard
-input. Note that the short option names use the same letters that the
-options menu inside Moe. Most long option names have a negative form
-'<samp><span class="samp">--backup</span></samp>' '<samp><span class="samp">--no-backup</span></samp>'.
+   <p class="noindent">Where <var>global_options</var> are a mix of editor options and default
+<var>file_options</var>. Note that the short option names use the same
+letters that the options menu inside moe. Most long option names have a
+negative form '<samp><span class="samp">--backup</span></samp>' '<samp><span class="samp">--no-backup</span></samp>'.
 
    <p>Each file name may be preceded by '<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to
 start the cursor at the specified line and, optionally, column. 
 <var>line</var> and <var>column</var> are applied to subsequent files until new
 values are specified for them.
+
+   <p>'<samp><span class="samp">-</span></samp>' used as a <var>file</var> argument means standard input. It can be
+mixed with other <var>files</var> and is read just once, the first time it
+appears in the command line. If standard input is a terminal, '<samp><span class="samp">-</span></samp>'
+is ignored.
+
+   <p>If any <var>file</var> is a directory, moe loads recursively all regular
+files in <var>file</var>, applying to each of them the <var>line</var>,
+<var>column</var> and <var>file_options</var> specified for <var>file</var>. This
+feature makes it easier to edit a whole tree containing thousands of
+files. The search order is depth first. All files in each directory are
+loaded before descending into subdirectories. Backups '<samp><span class="samp">*~</span></samp>', object
+files '<samp><span class="samp">*.o</span></samp>', and symbolic links are ignored.
 
    <p>Moe is able to read some types of non regular files at startup. Opening
 non regular files during the editing session is not allowed because it
@@ -173,7 +200,7 @@ being edited.
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
 
-     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of Moe on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of moe on the standard output and exit.
 
      <br><dt><code>-1</code><dt><code>--orphan</code><dd>Put extra files in orphaned buffers instead of in new windows.
 
@@ -188,7 +215,7 @@ of the line, and if you press it again, it remains there. With this
 option, if the cursor is at the beginning of the line and you press
 home, the cursor moves to the first non-blank character.
 
-     <br><dt><code>-i</code><dt><code>--ignore-case</code><dd>Search in Moe is case sensitive by default. With this option you can
+     <br><dt><code>-i</code><dt><code>--ignore-case</code><dd>Search in moe is case sensitive by default. With this option you can
 make it case insensitive by default.
 
      <br><dt><code>-k </code><var>n</var><dt><code>--keep-lines=</code><var>n</var><dd>Number of lines to keep for PgUp/PgDn. -1 means half window.
@@ -246,7 +273,7 @@ caused moe to panic.
 <a name="The-moerc-file"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#The-status-line">The status line</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-Moe">Invoking Moe</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-moe">Invoking moe</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
@@ -254,10 +281,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">4 The moerc file</h2>
 
 <p><a name="index-the-moerc-file-7"></a>
-<samp><span class="file">moerc</span></samp> is the runtime configuration file for Moe. In it you may
+<samp><span class="file">moerc</span></samp> is the runtime configuration file for moe. In it you may
 define default editor options, default file options and file name
 dependent options. The <samp><span class="file">moerc</span></samp> file is optional; you don't need to
-install it in order to run Moe.
+install it in order to run moe.
 
    <p>The options specified in the command line override those specified in
 the <samp><span class="file">moerc</span></samp> file.
@@ -315,17 +342,16 @@ Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is
 used for harmless commands like cursor movements and scrolling. The
 &lt;Control&gt; key is used for more "dangerous" commands like copying
 text blocks, deleting lines, or exiting. The &lt;Tab&gt; key is used for
-file name completion and also shows/hides the directory browser when Moe
+file name completion and also shows/hides the directory browser when moe
 asks for a file name to save or load. In any case, the unlimited
-undo/redo capability of Moe makes very difficult to accidentally cause
+undo/redo capability of moe makes very difficult to accidentally cause
 an irreparable damage to your files.
 
-   <p>Moe uses the function keys, so that the most frequent commands can be
+   <p>Moe uses the function keys so that the most frequent commands can be
 issued with only one finger. The function key &lt;F1&gt; shows the online
-help, and &lt;F10&gt; allows you to change the options. Believe it or not,
-this paragraph and some experience with text editors is all you need to
-use Moe almost as well as an expert. Forget about '<samp><span class="samp">learning curves</span></samp>';
-there is nothing to learn.
+help, and &lt;F10&gt; allows you to change the options. The online help
+and some experience with text editors is all you need to start using
+moe. Reading the manual is only required for more advanced uses of moe.
 
    <p>The &lt;Control&gt; key is displayed in the online help as '<samp><span class="samp">^</span></samp>', while
 the &lt;Alt&gt; key is displayed as '<samp><span class="samp">^[</span></samp>'. In this manual
@@ -360,15 +386,16 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
 <p><a name="index-function-keys-10"></a>
      <dl>
-<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-h</kbd><dd>Show the online help. Press &lt;Page_up&gt; to see the previous help
-screen or &lt;Page_down&gt; to see the next help screen. Press &lt;F1&gt;
-or <kbd>C-h</kbd> again to return to the editor.
+<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-a</kbd><dt><kbd>C-h</kbd><dd>Show the online help. Press &lt;Page_up&gt; to see the previous help
+screen or &lt;Page_down&gt; to see the next help screen. Press &lt;F1&gt;,
+<kbd>C-a</kbd> or <kbd>C-h</kbd> again to return to the editor.
 
      <br><dt><kbd>&lt;F2&gt;</kbd><dd>Save the current buffer to a file, automatically creating any missing
 parent directories. It will ask you to confirm the file name. You may
 save the buffer with a different name, in which case the modified status
-of the buffer being edited does not change. Moe makes a backup for a
-file only the first time the file is saved from one buffer.
+of the buffer being edited does not change, and the file permissions are
+copied from the existing file to the new file. Moe makes a backup of a
+file only the first time the file is saved from a given buffer.
 
      <br><dt><kbd>&lt;F3&gt;</kbd><dd>Load (read) a file in a new buffer. Pressing &lt;Tab&gt; shows the
 contents of the current directory, or completes the name if there is
@@ -453,11 +480,11 @@ been set and is in the current buffer.
      <br><dt><kbd>A-k</kbd><dd>Move cursor to the end of the selected block, if end of block has been
 set and is in the current buffer.
 
-     <br><dt><kbd>A-f</kbd><dd>Move cursor to the matching '<samp><span class="samp">(</span></samp>', '<samp><span class="samp">[</span></samp>', '<samp><span class="samp">{</span></samp>', '<samp><span class="samp">&lt;</span></samp>',
-'<samp><span class="samp">)</span></samp>', '<samp><span class="samp">]</span></samp>', '<samp><span class="samp">}</span></samp>', '<samp><span class="samp">&gt;</span></samp>', '<samp><span class="samp">"</span></samp>', '<samp><span class="samp">'</span></samp>', '<samp><span class="samp">`</span></samp>',
-'<samp><span class="samp">/*</span></samp>' or '<samp><span class="samp">*/</span></samp>'. Default movement is forward for undirected
-delimiters. If the cursor is not on a valid delimiter, Moe tries to
-guess what delimiter to match.
+     <br><dt><kbd>A-f</kbd><dd>Goto matching delimiter. Move cursor to the matching '<samp><span class="samp">(</span></samp>', '<samp><span class="samp">[</span></samp>',
+'<samp><span class="samp">{</span></samp>', '<samp><span class="samp">&lt;</span></samp>', '<samp><span class="samp">)</span></samp>', '<samp><span class="samp">]</span></samp>', '<samp><span class="samp">}</span></samp>', '<samp><span class="samp">&gt;</span></samp>', '<samp><span class="samp">"</span></samp>',
+'<samp><span class="samp">'</span></samp>', '<samp><span class="samp">`</span></samp>', '<samp><span class="samp">/*</span></samp>' or '<samp><span class="samp">*/</span></samp>'. Default movement is forward
+for undirected delimiters. If the cursor is not on a valid delimiter,
+moe tries to guess what delimiter to match.
 
      <br><dt><kbd>A-g</kbd><dd>Like <kbd>A-f</kbd>, but default movement is backward for undirected delimiters.
 
@@ -510,7 +537,7 @@ cursor is in the middle of a line, &lt;Return&gt; splits the line.
 
    <p>Moe can split lines automatically when you type past the right margin
 if you turn on word wrap in the options menu (see <a href="#Function-keys">Function keys</a>), or
-from the command line when invoking Moe.
+from the command line when invoking moe.
 
    <p>If you prefer to have text characters replace (overwrite) existing ones
 rather than being inserted among them, you can activate overwrite mode
@@ -542,7 +569,7 @@ when entering the replacement text.
 
 <p class="noindent">The <kbd>C-w</kbd> command searchs for the word at the cursor.
 
-   <p>After entering the text to be searched, Moe will prompt for search
+   <p>After entering the text to be searched, moe will prompt for search
 options. You may just hit &lt;Return&gt; to search forward with default
 options or type one or more of the following options:
 
@@ -584,7 +611,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 Regular expressions have a syntax in which a few characters are special
 constructs and the rest are "ordinary". An ordinary character is a
 simple regular expression which matches that same character and nothing
-else. In Moe's regular expressions, all characters are ordinary
+else. In moe's regular expressions, all characters are ordinary
 characters except '<samp><span class="samp">\</span></samp>', which is used to indicate a special
 character or construct. Here is a list of those special constructs, also
 known as "special search sequences".
@@ -766,7 +793,7 @@ only the last of each set.
 
      <p><a name="remove-UTF_002d8-out-of-range"></a><br><dt><kbd>C-o o</kbd><dd>Remove UTF-8 out of range. Remove from the UTF-8-encoded text in the
 block any valid UTF-8 character out of the range of characters managed
-by Moe. In case of error, the cursor is moved to the first byte of the
+by moe. In case of error, the cursor is moved to the first byte of the
 invalid UTF-8 character found. This command can be used before
 '<samp><span class="samp">decode UTF-8</span></samp>' to avoid mixed encoding in the decoded text.
 
@@ -791,12 +818,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
      <dl>
 <dt><kbd>C-c</kbd><dd>Close the current window without saving any changes. If the current
 window is the only one for its buffer, and the buffer being edited has
-been modified, or '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it
+been modified, or '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-moe">Invoking moe</a>), it
 will ask you before closing the window.
 
      <br><dt><kbd>C-x</kbd><dd>Save the buffer being edited (if it has been modified), and then close
 the current window. If the current window is the only one for its
-buffer, and '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-Moe">Invoking Moe</a>), it will
+buffer, and '<samp><span class="samp">exit-ask</span></samp>' is enabled (see <a href="#Invoking-moe">Invoking moe</a>), it will
 ask you before saving the buffer or closing the window.
 
      <br><dt><kbd>C-q c</kbd><dd>Exit completely without saving. It will always ask you before closing
@@ -820,12 +847,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
 <p><a name="index-info-commands-17"></a>
      <dl>
-<dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
+<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-a</kbd><dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
 
      <br><dt><kbd>A-i</kbd><dd>(Show character info). Show the line, position in line, position in
-buffer (offset) and code of the character at the cursor. (The
-'<samp><span class="samp">position in line</span></samp>' may differ from the column shown in the status
-line because of &lt;Tab&gt; characters in the line).
+buffer (offset and percent of buffer size) and code of the character at
+the cursor. (The '<samp><span class="samp">position in line</span></samp>' may differ from the column
+shown in the status line because of &lt;Tab&gt; characters in the line).
 
      <br><dt><kbd>A-t</kbd><dd>(Show UTF-8 code). Show the UTF-8 code of the multibyte character at the
 cursor. If the code is valid, the cursor is moved to the first byte of
@@ -846,7 +873,7 @@ the status line. Repeat the command to revert to normal.
 buffers being edited. Really it shows the number of buffer handles, so
 the numbers may be greater than expected.
 
-     <br><dt><kbd>C-s v</kbd><dd>Show Moe's version.
+     <br><dt><kbd>C-s v</kbd><dd>Show moe's version.
 
    </dl>
 
@@ -946,18 +973,19 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p><a name="index-emergency-save-20"></a><a name="index-binary-files-21"></a><a name="index-DOS-files-22"></a>
      <dl>
-<dt>Emergency save<dd>When Moe is interrupted by an abnormal event (a SIGTERM signal for
+<dt>Emergency save<dd>When moe is interrupted by an abnormal event (a SIGTERM signal for
 example), it will try to save all modified buffers in a file named
 <samp><span class="file">DEADMOE</span></samp> in the current directory.
 
      <br><dt>Basic '<samp><span class="samp">less</span></samp>' emulation<dd>In read-only buffers the space bar moves forward leaving 1 line of
-context, '<samp><span class="samp">/</span></samp>' acts as '<samp><span class="samp">Find</span></samp>', and '<samp><span class="samp">n</span></samp>' as '<samp><span class="samp">Find&nbsp;next</span></samp>'<!-- /@w -->.
+context, '<samp><span class="samp">/</span></samp>' acts as '<samp><span class="samp">Find</span></samp>', '<samp><span class="samp">n</span></samp>' as '<samp><span class="samp">Find&nbsp;next</span></samp>'<!-- /@w -->,
+and '<samp><span class="samp">N</span></samp>' as '<samp><span class="samp">Find&nbsp;next</span></samp>'<!-- /@w --> in reverse direction.
 
-     <br><dt>Binary files<dd>As Moe is 8-bit clean it is able to edit binary files, though in a
-somewhat inconvenient way. If the file does not have any newline
+     <br><dt>Binary files<dd>As moe is 8-bit clean it is able to edit binary files, though in a
+somewhat inconvenient way. If the file does not contain any newline
 character, all of it will be loaded as a single line.
 
-     <br><dt>DOS files<dd>If Moe detects at load time that all the lines of a file are terminated
+     <br><dt>DOS files<dd>If moe detects at load time that all the lines of a file are terminated
 by a CR/LF pair, assumes it is a DOS file and removes all the CRs. The
 CRs are restored later when saving the buffer to a file. If some, but
 not all, of the lines are CR/LF terminated, no action is taken and CRs
@@ -977,12 +1005,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">9 Reporting bugs</h2>
 
 <p><a name="index-bugs-23"></a><a name="index-getting-help-24"></a>
-There are probably bugs in Moe. There are certainly errors and omissions
+There are probably bugs in moe. There are certainly errors and omissions
 in this manual. If you report them, they will get fixed. If you don't,
 no one will ever know about them and they will remain unfixed for all
 eternity, if not longer.
 
-   <p>If you find a bug in GNU Moe, please send electronic mail to
+   <p>If you find a bug in GNU moe, please send electronic mail to
 <a href="mailto:bug-moe@gnu.org">bug-moe@gnu.org</a>. Include the version number, which you can
 find by running <code>moe&nbsp;--version</code><!-- /@w -->.
 
@@ -1009,18 +1037,18 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-info-commands-17">info commands</a>: <a href="#Info-commands">Info commands</a></li>
 <li><a href="#index-inserting-text-12">inserting text</a>: <a href="#Inserting-text">Inserting text</a></li>
 <li><a href="#index-introduction-1">introduction</a>: <a href="#Introduction">Introduction</a></li>
-<li><a href="#index-invoking-Moe-3">invoking Moe</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-invoking-moe-3">invoking moe</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 <li><a href="#index-keyboard-commands-9">keyboard commands</a>: <a href="#Keyboard-commands">Keyboard commands</a></li>
 <li><a href="#index-moving-around-11">moving around</a>: <a href="#Moving-around">Moving around</a></li>
-<li><a href="#index-options-4">options</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-options-4">options</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 <li><a href="#index-other-commands-18">other commands</a>: <a href="#Other-commands">Other commands</a></li>
 <li><a href="#index-regular-expressions-14">regular expressions</a>: <a href="#Regexps">Regexps</a></li>
 <li><a href="#index-romanization-19">romanization</a>: <a href="#Romanization">Romanization</a></li>
 <li><a href="#index-search-13">search</a>: <a href="#Search">Search</a></li>
 <li><a href="#index-the-moerc-file-7">the moerc file</a>: <a href="#The-moerc-file">The moerc file</a></li>
 <li><a href="#index-the-status-line-8">the status line</a>: <a href="#The-status-line">The status line</a></li>
-<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
-<li><a href="#index-version-6">version</a>: <a href="#Invoking-Moe">Invoking Moe</a></li>
+<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-moe">Invoking moe</a></li>
+<li><a href="#index-version-6">version</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 </ul></body></html>
 
 <!--

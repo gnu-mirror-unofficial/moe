@@ -21,20 +21,37 @@
 <h2>Introducción</h2>
 <p>
 GNU moe es un potente editor de textos para los conjuntos de caracteres
-ISO-8859 (8-bit) y ASCII. Tiene un interfaz sin modos muy fácil de usar,
-ayuda en línea, múltiples ventanas, capacidad ilimitada de
-deshacer/rehacer cambios, longitud de línea ilimitada, busqueda y
-reemplazo globales (en todos los ficheros simultaneamente), operaciones
-de bloque, sangrado automático, retorno de línea automático, compleción
-de nombres de ficheros, navegador de directorios, eliminación de
-duplicados de las historias de comandos, emparejamiento de
+ISO-8859 y ASCII. Tiene un interfaz sin modos fácil de usar, ayuda en
+línea, múltiples ventanas, capacidad ilimitada de deshacer/rehacer
+cambios, longitud de línea ilimitada, número de ficheros ilimitado,
+busqueda y reemplazo globales (en todos los ficheros simultáneamente),
+operaciones de bloque, sangrado automático, retorno de línea automático,
+compleción de nombres de ficheros, navegador de directorios, eliminación
+de duplicados de las historias de comandos, emparejamiento de
 delimitadores, conversión de texto de y a UTF-8, romanización, etc.
+<p>
+Moe puede editar fácilmente miles de ficheros al mismo tiempo.
+<p>
+Moe usa ISO-8859-15 en lugar de UTF-8 porque un conjunto de caracteres
+de 8 bits (combinado con romanización si es necesario) puede expresar un
+significado de forma más segura y eficiente que UTF-8.
 <p>
 UTF-8 es una gran herramienta para escribir libros de matemáticas o para
 mezclar griego con chino en el mismo documento. Pero para muchas otras
 tareas cotidianas de computación y comunicación, un código de 8 bits
 como ISO-8859-15 es mucho más práctico, eficiente y seguro. En
 ISO-8859-15 no existen caracteres "inválidos" o "fuera de rango".
+<p>
+UTF-8 es adecuado para documentos cuyo aspecto es importante pero que no
+necesitan ser sometidos a análisis o búsqueda automáticos. UTF-8 no es
+especialmente adecuado para ficheros de configuración o código fuente en
+C++. UTF-8 dificulta mucho el análisis (y puede incluso llegar a ser un
+riesgo de seguridad) al proporcionar múltiples variaciones de aspecto
+similar de caracteres básicos, tanto alfabéticos como de puntuación y de
+entrecomillado. UTF-8 también hace las búsquedas difíciles e inciertas.
+Por ejemplo, la búsqueda de una palabra como "fichero" en un documento
+UTF-8 puede fallar si el documento usa el carácter compuesto 'fi' en
+lugar de la cadena de caracteres "fi".
 <p>
 Moe intenta racionalizar los comandos del teclado. La tecla Alt se usa
 para comandos inofensivos como los movimientos del cursor. La tecla
@@ -48,10 +65,10 @@ ficheros.
 <p>
 Moe usa las teclas de función, de modo que los comandos mas frecuentes
 se puedan pulsar con solo un dedo. La tecla de función F1 muestra la
-ayuda en línea, y F10 permite cambiar las opciones. Lo creas o no, este
-párrafo y alguna experiencia con editores de texto es todo lo que
-necesitas para usar moe como si fueras un experto. Olvídate de las
-"curvas de aprendizaje"; no hay nada que aprender.
+ayuda en línea, y F10 permite cambiar las opciones. La ayuda en línea y
+alguna experiencia con editores de texto es todo lo que se necesita para
+empezar a usar moe. Leer el manual sólo es necesario para usos más
+avanzados de moe.
 </p>
 
 <h2>Documentación</h2>
@@ -132,13 +149,13 @@ envía tus comentarios sobre las páginas de www.gnu.org en general a
 envía las demás cuestiones a
 <a href="mailto:gnu@gnu.org"><em>gnu@gnu.org</em></a>.
 <p>
-Copyright &copy; 2016 Free Software Foundation, Inc., 51 Franklin St, Fifth
+Copyright &copy; 2017 Free Software Foundation, Inc., 51 Franklin St, Fifth
 Floor, Boston, MA 02110-1301 USA
 <p>
 Se permite la copia literal y la distribución de éste artículo en su
 totalidad a través de cualquier medio, siempre que se mantenga esta nota.
 <p>
-Updated: $Date: 2016/06/20 11:43:23 $ $Author: antonio $
+Updated: $Date: 2017/06/26 16:39:47 $ $Author: antonio $
 </p>
 <hr>
 </body>
