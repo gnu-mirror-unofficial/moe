@@ -44,14 +44,16 @@ ISO-8859-15 no existen caracteres "inválidos" o "fuera de rango".
 <p>
 UTF-8 es adecuado para documentos cuyo aspecto es importante pero que no
 necesitan ser sometidos a análisis o búsqueda automáticos. UTF-8 no es
-especialmente adecuado para ficheros de configuración o código fuente en
-C++. UTF-8 dificulta mucho el análisis (y puede incluso llegar a ser un
-riesgo de seguridad) al proporcionar múltiples variaciones de aspecto
-similar de caracteres básicos, tanto alfabéticos como de puntuación y de
-entrecomillado. UTF-8 también hace las búsquedas difíciles e inciertas.
-Por ejemplo, la búsqueda de una palabra como "fichero" en un documento
-UTF-8 puede fallar si el documento usa el carácter compuesto 'fi' en
-lugar de la cadena de caracteres "fi".
+especialmente adecuado para nombres de fichero, ficheros de configuración o
+código fuente en C++. Los nombres de fichero que contienen caracteres UTF-8
+inválidos reducen la fiabilidad de las operaciones de archivado y de
+sistemas de ficheros. UTF-8 dificulta mucho el análisis (y puede incluso
+llegar a ser un riesgo de seguridad) al proporcionar múltiples variaciones
+de aspecto similar de caracteres básicos, tanto alfabéticos como de
+puntuación y de entrecomillado. UTF-8 también hace las búsquedas difíciles e
+inciertas. Por ejemplo, la búsqueda de una palabra como "fichero" en un
+documento UTF-8 puede fallar si el documento usa el carácter compuesto 'fi'
+en lugar de la cadena de caracteres "fi".
 <p>
 Moe intenta racionalizar los comandos del teclado. La tecla Alt se usa
 para comandos inofensivos como los movimientos del cursor. La tecla
@@ -116,16 +118,17 @@ Un archivo de la lista de correo está disponible en
 
 <h2>Cómo Ayudar</h2>
 <p>
-Para contactar con los mantenedores, tanto para informar sobre un error
-(bug) como para contribuir soluciones o mejoras, envía un mensaje a
+
+Para contactar con el autor, tanto para informar sobre un error (bug) como
+para contribuir soluciones o mejoras, envía un mensaje a
 <a href="mailto:bug-moe@gnu.org"><em>bug-moe@gnu.org</em></a>.
 Por favor, envía los mensajes como texto llano. Si envías parches, hazlo
 en formato diff unificado (diff -u) sobre la última versión. Incluye una
 descripción del problema en el mensaje.
 <p>
 También puedes visitar la
-<a href="http://savannah.gnu.org/projects/moe/">página de moe</a>
-en Savannah.
+<a href="http://savannah.gnu.org/projects/moe/">página de moe</a> en
+Savannah.
 <p>
 <a href="http://validator.w3.org/check?uri=referer">
 Valid HTML 4.01 Strict</a>
@@ -149,13 +152,13 @@ envía tus comentarios sobre las páginas de www.gnu.org en general a
 envía las demás cuestiones a
 <a href="mailto:gnu@gnu.org"><em>gnu@gnu.org</em></a>.
 <p>
-Copyright &copy; 2017 Free Software Foundation, Inc., 51 Franklin St, Fifth
+Copyright &copy; 2018 Free Software Foundation, Inc., 51 Franklin St, Fifth
 Floor, Boston, MA 02110-1301 USA
 <p>
 Se permite la copia literal y la distribución de éste artículo en su
 totalidad a través de cualquier medio, siempre que se mantenga esta nota.
 <p>
-Updated: $Date: 2017/06/26 16:39:47 $ $Author: antonio $
+Updated: $Date: 2018/12/17 16:39:42 $ $Author: antonio $
 </p>
 <hr>
 </body>

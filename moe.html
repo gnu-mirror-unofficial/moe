@@ -41,13 +41,14 @@ ISO-8859-15 is much more practical, efficient and reliable. There is no
 such thing as an "invalid" or "out of range" ISO-8859-15 character.
 <p>
 UTF-8 is fine for non-parsable, non-searchable documents that must look
-"pretty", but not so fine for things like configuration files or C++
-source code. UTF-8 greatly hinders parsability (and may even become a
-security risk) by providing multiple similar-looking variations of basic
-alphabetic, punctuation, and quoting characters. UTF-8 also makes search
-difficult and unreliable. For example, searching for a word like "file"
-in an UTF-8 document may fail if the document uses the compound
-character 'fi' instead of the string "fi".
+"pretty", but not so fine for things like filenames, configuration files or
+C++ source code. Invalid UTF-8 characters in filenames make archiving and
+filesystem operations unreliable. UTF-8 greatly hinders parsability (and may
+even become a security risk) by providing multiple similar-looking
+variations of basic alphabetic, punctuation, and quoting characters. UTF-8
+also makes search difficult and unreliable. For example, searching for a
+word like "file" in an UTF-8 document may fail if the document uses the
+compound character 'fi' instead of the string "fi".
 <p>
 Moe tries to rationalize the keyboard commands. The Alt key is used for
 harmless commands like cursor movements and scrolling. The Control key
@@ -117,8 +118,8 @@ unified diff format against the latest version. They should include a
 text description.
 <p>
 See also the
-<a href="http://savannah.gnu.org/projects/moe/">moe
-project page</a> at Savannah.
+<a href="http://savannah.gnu.org/projects/moe/">moe project page</a> at
+Savannah.
 </p>
 
 <h2>Licensing</h2>
@@ -147,13 +148,13 @@ send comments about www.gnu.org web pages in general to
 <a href="mailto:webmasters@www.gnu.org"><em>webmasters@www.gnu.org</em></a>,
 send other questions to <a href="mailto:gnu@gnu.org"><em>gnu@gnu.org</em></a>.
 <p>
-Copyright &copy; 2017 Free Software Foundation, Inc., 51 Franklin St, Fifth
+Copyright &copy; 2018 Free Software Foundation, Inc., 51 Franklin St, Fifth
 Floor, Boston, MA 02110-1301 USA
 <p>
-Verbatim copying and distribution of this entire article is
-permitted in any medium, provided this notice is preserved.
+Verbatim copying and distribution of this entire article is permitted in any
+medium, provided this notice is preserved.
 <p>
-Updated: $Date: 2017/06/26 16:39:47 $ $Author: antonio $
+Updated: $Date: 2018/12/17 16:39:42 $ $Author: antonio $
 </p>
 <hr>
 </body>
