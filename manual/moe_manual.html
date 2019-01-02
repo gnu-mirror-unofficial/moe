@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU moe Manual</h2>
 
-<p>This manual is for GNU moe (version 1.9, 2 June 2017).
+<p>This manual is for GNU moe (version 1.10, 1 January 2019).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU moe
@@ -48,7 +48,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2005-2017 Antonio Diaz Diaz.
+Copyright &copy; 2005-2019 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -76,33 +76,42 @@ delimiter matching, text conversion from/to UTF-8, romanization, etc.
    <p>Moe can easily edit thousands of files at the same time.
 
    <p>Moe uses ISO-8859-15 instead of UTF-8 because an 8-bit character set
-(combined with romanization if needed) can convey meaning safely and
-more efficiently than UTF-8 can.
+(combined with romanization if needed) can convey meaning safely and more
+efficiently than UTF-8 can.
 
-   <p>UTF-8 is a great tool for tasks like writing books of mathematics or
-mixing Greek with Chinese in the same document. But for many other
-everyday computing and communication tasks, an 8-bit code like
-ISO-8859-15 is much more practical, efficient and reliable. There is no
-such thing as an "invalid" or "out of range" ISO-8859-15 character.
+   <p>UTF-8 is a great tool for tasks like writing books of mathematics or mixing
+Greek with Chinese in the same document. But for many other everyday
+computing and communication tasks, an 8-bit code like ISO-8859-15 is much
+more practical, efficient and reliable. There is no such thing as an
+'invalid' or 'out of range' ISO-8859-15 character.
 
    <p>UTF-8 is fine for non-parsable, non-searchable documents that must look
-"pretty", but not so fine for things like configuration files or C++
-source code. UTF-8 greatly hinders parsability (and may even become a
-security risk) by providing multiple similar-looking variations of basic
-alphabetic, punctuation, and quoting characters. UTF-8 also makes search
-difficult and unreliable. For example, searching for a word like "file"
-in an UTF-8 document may fail if the document uses the compound
-character 'fi' instead of the string "fi".
+'pretty', but not so fine for things like filenames, configuration files or
+C++ source code. Invalid UTF-8 characters in filenames make archiving and
+filesystem operations unreliable. UTF-8 greatly hinders parsability (and may
+even become a security risk) by providing multiple similar-looking
+variations of basic alphabetic, punctuation, and quoting characters. UTF-8
+also makes search difficult and unreliable. For example, searching for a
+word like "file" in an UTF-8 document may fail if the document uses the
+compound character 'fi' instead of the string "fi".
+
+   <p>UTF-8 allows user tracking by means of invisible text marking. Any string
+can be converted into its binary form and then recoded into a string of
+zero-width characters, which can then be invisibly inserted into the text. 
+If the text is posted elsewhere, the zero-width character string can be
+extracted and the process reversed to figure out the identity of the person
+who copied it. Using moe and ISO-8859-15 such invisible marking is more
+difficult, more fragile, and easier to discover.
 
    <p>To have moe used as your default editor you need to set the environment
 variables '<samp><span class="samp">EDITOR=moe</span></samp>' and/or '<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
 initialization file ($HOME/.profile if you are using bash).
 
-   <p>If your text console doesn't show all the ISO-8859-15 characters, try
-the <code>setfont</code> command from the '<samp><span class="samp">kbd</span></samp>' package.
+   <p>If your text console doesn't show all the ISO-8859-15 characters, try the
+<code>setfont</code> command from the '<samp><span class="samp">kbd</span></samp>' package.
 
-   <p>Moe needs a screen size of at least 24 lines by 80 columns. Take this
-into account if running it from a terminal emulator.
+   <p>Moe needs a screen size of at least 24 lines by 80 columns. Take this into
+account if running it from a terminal emulator.
 
 <div class="node">
 <a name="Basic-concepts"></a>
@@ -188,7 +197,9 @@ files in <var>file</var>, applying to each of them the <var>line</var>,
 feature makes it easier to edit a whole tree containing thousands of
 files. The search order is depth first. All files in each directory are
 loaded before descending into subdirectories. Backups '<samp><span class="samp">*~</span></samp>', object
-files '<samp><span class="samp">*.o</span></samp>', and symbolic links are ignored.
+files '<samp><span class="samp">*.o</span></samp>', compressed files ('<samp><span class="samp">*.gz</span></samp>', '<samp><span class="samp">*.lz</span></samp>', etc),
+graphic files ('<samp><span class="samp">*.pdf</span></samp>', '<samp><span class="samp">*.png</span></samp>', etc), and symbolic links are
+ignored.
 
    <p>Moe is able to read some types of non regular files at startup. Opening
 non regular files during the editing session is not allowed because it
@@ -200,7 +211,8 @@ being edited.
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
 
-     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of moe on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of moe on the standard output and exit. 
+This version number should be included in all bug reports.
 
      <br><dt><code>-1</code><dt><code>--orphan</code><dd>Put extra files in orphaned buffers instead of in new windows.
 
@@ -243,9 +255,10 @@ are &lt;Tab&gt; characters in or at the left of the block.
 the end of a line, the cursor moves under the first non-blank character
 of the previous line instead of at the beginning of the line.
 
-     <br><dt><code>-l </code><var>column</var><dt><code>--lmargin=</code><var>column</var><dd>Set left margin to <var>column</var>. The first column is column 1.
+     <br><dt><code>-l </code><var>column</var><dt><code>--lmargin=</code><var>column</var><dd>Set left margin to <var>column</var>. Default value is 1. The first column is
+column 1.
 
-     <br><dt><code>-r </code><var>column</var><dt><code>--rmargin=</code><var>column</var><dd>Set right margin to <var>column</var>.
+     <br><dt><code>-r </code><var>column</var><dt><code>--rmargin=</code><var>column</var><dd>Set right margin to <var>column</var>. Default value is 76.
 
      <br><dt><code>-o</code><dt><code>--read-only</code><dd>Make the buffer read only.
 
@@ -265,9 +278,9 @@ octal values (using the same syntax as integer constants in C++).
 
 </pre>
 Exit status: 0 for a normal exit, 1 for environmental problems (file not
-found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or
-invalid input file, 3 for an internal consistency error (eg, bug) which
-caused moe to panic.
+found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or invalid
+input file, 3 for an internal consistency error (eg, bug) which caused moe
+to panic.
 
 <div class="node">
 <a name="The-moerc-file"></a>
@@ -338,29 +351,27 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">6 Keyboard commands</h2>
 
 <p><a name="index-keyboard-commands-9"></a>
-Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is
-used for harmless commands like cursor movements and scrolling. The
-&lt;Control&gt; key is used for more "dangerous" commands like copying
-text blocks, deleting lines, or exiting. The &lt;Tab&gt; key is used for
-file name completion and also shows/hides the directory browser when moe
-asks for a file name to save or load. In any case, the unlimited
-undo/redo capability of moe makes very difficult to accidentally cause
-an irreparable damage to your files.
+Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is used
+for harmless commands like cursor movements and scrolling. The &lt;Control&gt;
+key is used for more "dangerous" commands like copying text blocks, deleting
+lines, or exiting. The &lt;Tab&gt; key is used for file name completion and
+also shows/hides the directory browser when moe asks for a file name to save
+or load. In any case, the unlimited undo/redo capability of moe makes very
+difficult to accidentally cause an irreparable damage to your files.
 
-   <p>Moe uses the function keys so that the most frequent commands can be
-issued with only one finger. The function key &lt;F1&gt; shows the online
-help, and &lt;F10&gt; allows you to change the options. The online help
-and some experience with text editors is all you need to start using
-moe. Reading the manual is only required for more advanced uses of moe.
+   <p>Moe uses the function keys so that the most frequent commands can be issued
+with only one finger. The function key &lt;F1&gt; shows the online help, and
+&lt;F10&gt; allows you to change the options. The online help and some
+experience with text editors is all you need to start using moe. Reading the
+manual is only required for more advanced uses of moe.
 
-   <p>The &lt;Control&gt; key is displayed in the online help as '<samp><span class="samp">^</span></samp>', while
-the &lt;Alt&gt; key is displayed as '<samp><span class="samp">^[</span></samp>'. In this manual
-<kbd>Control-a</kbd> will be written as <kbd>C-a</kbd> and <kbd>Alt-a</kbd> as
-<kbd>A-a</kbd>.
+   <p>The &lt;Control&gt; key is displayed in the online help as '<samp><span class="samp">^</span></samp>', while the
+&lt;Alt&gt; key is displayed as '<samp><span class="samp">^[</span></samp>'. In this manual <kbd>Control-a</kbd> will
+be written as <kbd>C-a</kbd> and <kbd>Alt-a</kbd> as <kbd>A-a</kbd>.
 
-   <p>Some environments "swallow" the &lt;Alt&gt; key so that it never reaches
-the application. If this happens, press the &lt;Esc&gt; key, then release
-it and press the desired key.
+   <p>Some environments "swallow" the &lt;Alt&gt; key so that it never reaches the
+application. If this happens, press the &lt;Esc&gt; key, then release it and
+press the desired key.
 
 <ul class="menu">
 <li><a accesskey="1" href="#Function-keys">Function keys</a>:        The most important functions are here
@@ -507,9 +518,11 @@ Set one of the 10 user bookmarks at the cursor position.
      <br><dt><kbd>A-0..9</kbd><dd>(Keep the &lt;Alt&gt; key pressed while typing a digit from 0 to 9). 
 Move the cursor to one of the 10 user bookmarks.
 
-     <br><dt><kbd>C-k e</kbd><dd>Extend bookmarks. Set at lines 100..900 the user bookmarks 1..9 that
-were not previously set or are repeated (point to the same character
-that a previous bookmark).
+     <br><dt><kbd>C-k e</kbd><dd>Extend bookmarks. Set the user bookmarks 1 to 9 that were not previously set
+or that are repeated (point to the same character that a previous bookmark). 
+On buffers with 1000 lines or less, the bookmarks are set at lines 100 to
+900. On larger buffers the bookmarks are set at 10% to 90% of the buffer
+size in lines.
 
    </dl>
 
@@ -797,6 +810,9 @@ by moe. In case of error, the cursor is moved to the first byte of the
 invalid UTF-8 character found. This command can be used before
 '<samp><span class="samp">decode UTF-8</span></samp>' to avoid mixed encoding in the decoded text.
 
+     <br><dt><kbd>C-o k</kbd><dd>Capitalize all the words in the block. (Uppercase the first letter of each
+word and lowercase the rest).
+
      <br><dt><kbd>C-o l</kbd><dd>Convert all the letters in the block to lowercase.
 
      <br><dt><kbd>C-o u</kbd><dd>Convert all the letters in the block to uppercase.
@@ -866,12 +882,17 @@ and lzip files.
      <br><dt><kbd>C-s &lt;F2&gt;</kbd><dt><kbd>C-s &lt;F4&gt;</kbd><dt><kbd>C-s &lt;F8&gt;</kbd><dd>(Show big-endian multibyte value). Show the big-endian value of a
 sequence of 2, 4 or 8 bytes in decimal and hexadecimal.
 
-     <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show the code of the character at the cursor on
-the status line. Repeat the command to revert to normal.
+     <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show on the status line the code of the character
+at the cursor. Repeat the command to revert to normal. This command
+overrides the <kbd>C-s p</kbd> command below.
 
      <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
 buffers being edited. Really it shows the number of buffer handles, so
 the numbers may be greater than expected.
+
+     <br><dt><kbd>C-s p</kbd><dd>(Show line position in buffer). Show on the status line the percent
+position of the current line in the buffer. Repeat the command to revert
+to normal. This command overrides the <kbd>C-s c</kbd> command above.
 
      <br><dt><kbd>C-s v</kbd><dd>Show moe's version.
 
@@ -937,7 +958,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">7 Romanization</h2>
 
 <p><a name="index-romanization-19"></a>
-The first step towards mutual comprehension is a common language.<br>
+The lack of a common language is the most divisive border.<br>
 The first step towards a common language is a common alphabet.
 
    <p>Romanization is the process of transliterating a language from its
