@@ -28,42 +28,40 @@ once), block operations, automatic indentation, word wrapping, file name
 completion, directory browser, duplicate removal from prompt histories,
 delimiter matching, text conversion from/to UTF-8, romanization, etc.
 <p>
+Moe respects your work. By default it won't automatically add, change, or
+remove not even one byte in your files. Moe is a WYTIWYG (what you type is
+what you get) editor.
+<p>
 Moe can easily edit thousands of files at the same time.
 <p>
-Moe uses ISO-8859-15 instead of UTF-8 because an 8-bit character set
-(combined with romanization if needed) can convey meaning safely and
-more efficiently than UTF-8 can.
+Moe tries to rationalize the keyboard commands. The &lt;Alt&gt; key is used
+for harmless commands like cursor movements and scrolling. The
+&lt;Control&gt; key is used for more "dangerous" commands like copying text
+blocks, deleting lines, or exiting. The &lt;Tab&gt; key is used for file
+name completion and also shows/hides the directory browser when moe asks for
+a file name to save or load. In any case, the unlimited undo/redo capability
+of moe makes very difficult to accidentally cause an irreparable damage to
+your files.
 <p>
-UTF-8 is a great tool for tasks like writing books of mathematics or
-mixing Greek with Chinese in the same document. But for many other
-everyday computing and communication tasks, an 8-bit code like
-ISO-8859-15 is much more practical, efficient and reliable. There is no
-such thing as an "invalid" or "out of range" ISO-8859-15 character.
-<p>
-UTF-8 is fine for non-parsable, non-searchable documents that must look
-"pretty", but not so fine for things like filenames, configuration files or
-C++ source code. Invalid UTF-8 characters in filenames make archiving and
-filesystem operations unreliable. UTF-8 greatly hinders parsability (and may
-even become a security risk) by providing multiple similar-looking
-variations of basic alphabetic, punctuation, and quoting characters. UTF-8
-also makes search difficult and unreliable. For example, searching for a
-word like "file" in an UTF-8 document may fail if the document uses the
-compound character 'fi' instead of the string "fi".
-<p>
-Moe tries to rationalize the keyboard commands. The Alt key is used for
-harmless commands like cursor movements and scrolling. The Control key
-is used for more "dangerous" commands like copying text blocks, deleting
-lines, or exiting. The Tab key is used for file name completion and also
-shows/hides the directory browser when moe asks for a file name to save
-or load. In any case, the unlimited undo/redo capability of moe makes
-very difficult to accidentally cause an irreparable damage to your
-files.
-<p>
-Moe uses the function keys so that the most frequent commands can be
-issued with only one finger. The function key F1 shows the online help,
-and F10 allows you to change the options. The online help and some
+Moe uses the function keys so that the most frequent commands can be issued
+with only one finger. The function key &lt;F1&gt; shows the online help,
+and &lt;F10&gt; allows you to change the options. The online help and some
 experience with text editors is all you need to start using moe. Reading
 the manual is only required for more advanced uses of moe.
+</p>
+
+<h3>Why moe does not use UTF-8 or other form of Unicode?</h3>
+<p>
+Moe uses ISO-8859-15 instead of Unicode (ISO 10646) because an 8-bit
+character set (combined with romanization if needed) can convey meaning
+safely and more efficiently than Unicode can. For many everyday computing
+and communication tasks, an 8-bit code like ISO-8859-15 is much more
+practical, efficient, and reliable than UTF-8. There is no such thing as an
+'ambiguous', 'invalid', or 'out of range' ISO-8859-15 character.
+<p>
+In my opinion, Unicode should not be used in texts parsable by a computer.
+See the <a href="manual/moe_manual.html#Introduction">online manual</a> for
+an exposition of some of the inconvenients and dangers of Unicode.
 </p>
 
 <h2>Documentation</h2>
@@ -154,13 +152,15 @@ send comments about www.gnu.org web pages in general to
 <a href="mailto:webmasters@www.gnu.org"><em>webmasters@www.gnu.org</em></a>,
 send other questions to <a href="mailto:gnu@gnu.org"><em>gnu@gnu.org</em></a>.
 <p>
-Copyright &copy; 2020 Free Software Foundation, Inc., 51 Franklin St, Fifth
+Copyright &copy; 2021 Free Software Foundation, Inc., 51 Franklin St, Fifth
 Floor, Boston, MA 02110-1301 USA
 <p>
 Verbatim copying and distribution of this entire article is permitted in any
 medium, provided this notice is preserved.
 <p>
-Updated: $Date: 2020/02/21 18:33:17 $ $Author: antonio $
+Updated: $Date: 2021/01/04 00:16:52 $ $Author: antonio $
+<p>
+This page does not use javascript.
 </p>
 <hr>
 </body>

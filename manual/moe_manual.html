@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU moe Manual</h2>
 
-<p>This manual is for GNU moe (version 1.10, 1 January 2019).
+<p>This manual is for GNU moe (version 1.11, 2 January 2021).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:         Purpose and features of GNU moe
@@ -48,10 +48,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2005-2019 Antonio Diaz Diaz.
+Copyright &copy; 2005-2021 Antonio Diaz Diaz.
 
-   <p>This manual is free documentation: you have unlimited permission
-to copy, distribute and modify it.
+   <p>This manual is free documentation: you have unlimited permission to copy,
+distribute, and modify it.
 
 <div class="node">
 <a name="Introduction"></a>
@@ -65,7 +65,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">1 Introduction</h2>
 
 <p><a name="index-introduction-1"></a>
-GNU moe is a powerful, 8-bit clean, console text editor for ISO-8859 and
+<a href="http://www.gnu.org/software/moe/moe.html">GNU moe</a>
+is a powerful, 8-bit clean, console text editor for ISO-8859 and
 ASCII character encodings. It has a modeless, user-friendly interface,
 online help, multiple windows, unlimited undo/redo capability, unlimited
 line length, unlimited buffers, global search/replace (on all buffers at
@@ -73,29 +74,103 @@ once), block operations, automatic indentation, word wrapping, file name
 completion, directory browser, duplicate removal from prompt histories,
 delimiter matching, text conversion from/to UTF-8, romanization, etc.
 
+   <p>Moe respects your work. By default it won't automatically add, change, or
+remove not even one byte in your files. Moe is a WYTIWYG (what you type is
+what you get) editor.
+
    <p>Moe can easily edit thousands of files at the same time.
 
-   <p>Moe uses ISO-8859-15 instead of UTF-8 because an 8-bit character set
-(combined with romanization if needed) can convey meaning safely and more
-efficiently than UTF-8 can.
+   <p>To have moe used as your default editor you need to set the environment
+variables '<samp><span class="samp">EDITOR=moe</span></samp>' and/or '<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
+initialization file ($HOME/.profile if you are using bash).
 
-   <p>UTF-8 is a great tool for tasks like writing books of mathematics or mixing
-Greek with Chinese in the same document. But for many other everyday
-computing and communication tasks, an 8-bit code like ISO-8859-15 is much
-more practical, efficient and reliable. There is no such thing as an
-'invalid' or 'out of range' ISO-8859-15 character.
+   <p>Moe needs a screen size of at least 24 lines by 80 columns. Take this into
+account if running it from a terminal emulator.
 
-   <p>UTF-8 is fine for non-parsable, non-searchable documents that must look
-'pretty', but not so fine for things like filenames, configuration files or
-C++ source code. Invalid UTF-8 characters in filenames make archiving and
-filesystem operations unreliable. UTF-8 greatly hinders parsability (and may
-even become a security risk) by providing multiple similar-looking
-variations of basic alphabetic, punctuation, and quoting characters. UTF-8
-also makes search difficult and unreliable. For example, searching for a
-word like "file" in an UTF-8 document may fail if the document uses the
-compound character 'fi' instead of the string "fi".
+   <p>If your text console doesn't show all the ISO-8859-15 characters, try the
+command '<samp><span class="samp">setfont</span></samp>' from the package '<samp><span class="samp">kbd</span></samp>'. If your terminal
+emulator shows characters with codes&nbsp;&gt;=&nbsp;128<!-- /@w --> incorrectly, verify that the
+encoding is set to ISO-8859-15. (Other ISO-8859 encodings may also work). 
+Verify also with the command '<samp><span class="samp">kbd_mode</span></samp>' that the keyboard is in the
+default (ASCII) mode. Use the following commands to set the text console in
+the right mode for moe:
+<pre class="example">     kbd_mode -a
+     setfont -v lat9w-16.psfu
+</pre>
+   <h3 class="section">1.1 Why moe does not use UTF-8 or other form of Unicode?</h3>
 
-   <p>UTF-8 allows user tracking by means of invisible text marking. Any string
+<p>Moe uses ISO-8859-15 instead of Unicode (ISO 10646) because an 8-bit
+character set (combined with romanization if needed) can convey meaning
+safely and more efficiently than Unicode can. For many everyday computing
+and communication tasks, an 8-bit code like ISO-8859-15 is much more
+practical, efficient, and reliable than UTF-8. There is no such thing as an
+'ambiguous', 'invalid', or 'out of range' ISO-8859-15 character.
+
+   <p>An Unicode text console is both a danger and a waste. The right mode for
+presenting a large variety of complex glyphs is graphical mode using a
+specialized program. The text console is for a limited, portable character
+set. Namely, for an universal character set.
+
+   <p>Unicode is not an universal character set, but a bag where a lot of
+unrelated character sets are thrown, even character sets for invented
+languages like Klingon, along with an ever growing set of emojis. Many
+glyphs appear multiple times with different codes, breaking the
+correspondence glyph&lt;-&gt;code, which creates ambiguity and consequently
+insecurity. Unicode even provides private areas where the glyph associated
+to each code is user-defined. Most computer tools recognize characters by
+their code, not by their glyph. Therefore Unicode should not be used in
+texts parsable by a computer.
+
+   <p>Unicode is fine for non-parsable, non-searchable documents that must look
+'pretty' or must combine different scripts (say Greek and Chinese), but not
+so fine for things like file names, configuration files, or C++ source code. 
+Invalid UTF-8 characters in file names make archiving and filesystem
+operations unreliable. Unicode greatly hinders parsability, interferes with
+spam filters, and may even become a security risk by providing multiple
+similar-looking variations of basic alphabetic, punctuation, and quoting
+characters. Unicode also makes search difficult, unreliable, and
+inefficient. For example, searching for a word like "file" in an Unicode
+document may fail if the document uses the presentation form (compound
+character) 'fi' instead of the two-character string "fi".
+
+   <p>Even the code examples inserted in pdf files fail to compile sometimes when
+copied because the program that generated the pdf replaced some ASCII
+characters in the example with "prettier" Unicode counterparts. Unlike moe,
+those programs do not respect your work.
+
+   <p>About the unreliability of searching in Unicode strings, the GNU grep manual
+warns that the behavior of case insensitive search is well specified only
+for lowercase-uppercase pairs, and it is unspecified in all other situations.
+
+   <p>About the inefficiency of Unicode, see for example this quotation from the
+GNU grep manual:
+
+   <blockquote>
+Generally speaking <samp><span class="command">grep</span></samp> operates more efficiently in single-byte
+locales, since it can avoid the special processing needed for multi-byte
+characters. If your patterns will work just as well that way, setting
+<samp><span class="env">LC_ALL</span></samp> to a single-byte locale can help performance considerably. 
+[...] Outside the '<samp><span class="samp">C</span></samp>' locale, case-insensitive search, and search for
+bracket expressions like '<samp><span class="samp">[a-z]</span></samp>' and '<samp><span class="samp">[[=a=]b]</span></samp>', can be
+surprisingly inefficient due to difficulties in fast portable access to
+concepts like multi-character collating elements. 
+</blockquote>
+
+   <p>Replacing all the 8-bit character sets with Unicode is like trying to
+simplify transportation by standardizing on the same kind of (excessively)
+large vehicle. I.e., forcing everybody to use a vehicle as large as the
+largest vehicle anybody may need. Just like owning a normal car may be
+orders of magnitude cheaper than owning a four-engined airliner, text tools
+using an 8-bit character set may be orders of magnitude more efficient than
+those using Unicode.
+
+   <p>Unicode strings (and therefore UTF-8 strings) are not unique; Unicode allows
+different ways of encoding the same character, for example using precomposed
+characters, composing accents, or presentation forms. This (along with
+zero-width characters) may be used to elude keyword-based spam filters, and
+makes searching and parsing even more difficult.
+
+   <p>Unicode allows user tracking by means of invisible text marking. Any string
 can be converted into its binary form and then recoded into a string of
 zero-width characters, which can then be invisibly inserted into the text. 
 If the text is posted elsewhere, the zero-width character string can be
@@ -103,15 +178,28 @@ extracted and the process reversed to figure out the identity of the person
 who copied it. Using moe and ISO-8859-15 such invisible marking is more
 difficult, more fragile, and easier to discover.
 
-   <p>To have moe used as your default editor you need to set the environment
-variables '<samp><span class="samp">EDITOR=moe</span></samp>' and/or '<samp><span class="samp">VISUAL=moe</span></samp>' in your shell
-initialization file ($HOME/.profile if you are using bash).
+   <p>In my opinion, the greatest invention of humankind is the language, and the
+greatest error was inventing more than one. The language barrier is the
+ultimate obstacle to inclusiveness, and therefore linguistic diversity is a
+problem that needs to be fixed. Every human being has the right to be taught
+exactly one language that gives him or her full access to the whole human
+culture and allows him or her communicate with everybody else. Equal rights
+can't be achieved without equal language. Forcing someone to learn a second
+language in order to access knowledge is wasteful and ineffective: twice as
+many words need to be memorized and most people will never be so proficient
+in the second language as they are in their native language. Language is a
+tool, not an end in itself.
 
-   <p>If your text console doesn't show all the ISO-8859-15 characters, try the
-<code>setfont</code> command from the '<samp><span class="samp">kbd</span></samp>' package.
+   <p>The only sane approach to software internationalization is to adopt or
+develop a lingua franca. Such lingua franca should be fully phonetic and
+should fit in an 8-bit character set like ISO-8859-15 for ease of use by
+both humans and computers. Unicode is not a viable solution. It is just the
+standardization of the current linguistic chaos.
 
-   <p>Moe needs a screen size of at least 24 lines by 80 columns. Take this into
-account if running it from a terminal emulator.
+   <p>Moe is an efficient and reliable ISO-8859 editor. If you need full Unicode
+support or interfacing to an UTF-8 terminal, you'll need to use another
+editor. If your distribution is forcing you to use Unicode, I advise you to
+use another distribution or Operating System.
 
 <div class="node">
 <a name="Basic-concepts"></a>
@@ -126,16 +214,23 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p><a name="index-basic-concepts-2"></a>
      <dl>
-<dt>Buffer<dd>The buffer is the basic editing unit; one buffer corresponds to one text
+<dt>Blank character<dd>Space (0x20) or tab (0x09).
+
+     <br><dt>Whitespace character<dd>Space (0x20), (horizontal) tab (0x09), newline (0x0A), vertical tab (0x0B),
+form feed (0x0C), carriage return (0x0D) or no-break space (0xA0).
+
+     <br><dt>Begin of text<dd>Position of the first non-blank character in a line, or end-of-line if there
+are no non-blank characters in the line.
+
+     <br><dt>Buffer<dd>The buffer is the basic editing unit; one buffer corresponds to one text
 being edited. You can have several buffers, but at any time you are
 editing only one, the "current buffer", though several buffers (or
 several parts of the same buffer) can be visible when you are using
 multiple windows.
 
      <br><dt>Buffer handle<dd>The buffer handle is the data structure underlying a (possibly hidden)
-window. It contains the window and cursor positions in the buffer. There
-is no limit on the number of buffer handles that can refer to the same
-buffer.
+window. It contains the window and cursor positions in the buffer. There is
+no limit on the number of buffer handles that can refer to the same buffer.
 
      <br><dt>Current line<dd>The line with the cursor.
 
@@ -148,7 +243,7 @@ file into the buffer, and then displays the buffer for you to edit. If
 you alter the text, you can save the new text in the file. This makes
 the changes permanent by copying the altered buffer contents back into
 the file. Until you save, the changes exist only inside moe, and the
-loaded file remains unaltered.
+file loaded remains unaltered.
 
      <p>To create a file, just load the file as if it already existed. This
 creates an empty buffer in which you can insert the text you want to put
@@ -177,36 +272,35 @@ The format for running moe is:
 <pre class="example">     moe [<var>global_options</var>] [ [+<var>line</var>[,<var>column</var>]] <var>file</var> [<var>file_options</var>] ]...
 </pre>
    <p class="noindent">Where <var>global_options</var> are a mix of editor options and default
-<var>file_options</var>. Note that the short option names use the same
-letters that the options menu inside moe. Most long option names have a
-negative form '<samp><span class="samp">--backup</span></samp>' '<samp><span class="samp">--no-backup</span></samp>'.
+<var>file_options</var>. Note that the short option names use the same letters
+that the options menu inside moe. Most long option names have a negative
+form '<samp><span class="samp">--backup</span></samp>' '<samp><span class="samp">--no-backup</span></samp>'.
 
-   <p>Each file name may be preceded by '<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to
-start the cursor at the specified line and, optionally, column. 
-<var>line</var> and <var>column</var> are applied to subsequent files until new
-values are specified for them.
+   <p>Each file name may be preceded by '<samp><span class="samp">+</span><var>line</var><span class="samp">[,</span><var>column</var><span class="samp">]</span></samp>' to start
+the cursor at the line, and optionally column, specified. <var>line</var> and
+<var>column</var> are applied to subsequent files until new values are specified
+for them.
 
-   <p>'<samp><span class="samp">-</span></samp>' used as a <var>file</var> argument means standard input. It can be
-mixed with other <var>files</var> and is read just once, the first time it
-appears in the command line. If standard input is a terminal, '<samp><span class="samp">-</span></samp>'
-is ignored.
-
-   <p>If any <var>file</var> is a directory, moe loads recursively all regular
-files in <var>file</var>, applying to each of them the <var>line</var>,
-<var>column</var> and <var>file_options</var> specified for <var>file</var>. This
-feature makes it easier to edit a whole tree containing thousands of
-files. The search order is depth first. All files in each directory are
-loaded before descending into subdirectories. Backups '<samp><span class="samp">*~</span></samp>', object
-files '<samp><span class="samp">*.o</span></samp>', compressed files ('<samp><span class="samp">*.gz</span></samp>', '<samp><span class="samp">*.lz</span></samp>', etc),
-graphic files ('<samp><span class="samp">*.pdf</span></samp>', '<samp><span class="samp">*.png</span></samp>', etc), and symbolic links are
+   <p>A hyphen '<samp><span class="samp">-</span></samp>' used as a <var>file</var> argument means standard input. It can
+be mixed with other <var>files</var> and is read just once, the first time it
+appears in the command line. If standard input is a terminal, '<samp><span class="samp">-</span></samp>' is
 ignored.
 
-   <p>Moe is able to read some types of non regular files at startup. Opening
-non regular files during the editing session is not allowed because it
-could cause moe to be killed, losing the changes of any other files
-being edited.
+   <p>If any <var>file</var> is a directory, moe loads recursively all files in
+<var>file</var>, applying to each of them the <var>line</var>, <var>column</var>, and
+<var>file_options</var> specified for <var>file</var>. This feature makes it easier to
+edit a whole tree containing thousands of files. The search order is depth
+first. All files in each directory are loaded before descending into
+subdirectories. Backups '<samp><span class="samp">*~</span></samp>', object files '<samp><span class="samp">*.o</span></samp>', compressed files
+('<samp><span class="samp">*.gz</span></samp>', '<samp><span class="samp">*.lz</span></samp>', etc), graphic files ('<samp><span class="samp">*.pdf</span></samp>', '<samp><span class="samp">*.png</span></samp>',
+etc), and symbolic links are ignored.
 
-   <p>Moe supports the following editor options:
+   <p>Moe is able to read some types of non-regular files at startup. Opening
+non-regular files during the editing session is not allowed because it could
+cause moe to be killed, losing the changes of any other files being edited.
+
+   <p>Moe supports the following editor
+<a href="http://www.nongnu.org/arg-parser/manual/arg_parser_manual.html#Argument-syntax">options</a>:
 
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
@@ -222,10 +316,10 @@ This version number should be included in all bug reports.
 
      <br><dt><code>-e</code><dt><code>--exit-ask</code><dd>Ask always for confirmation when closing or saving-and-closing a buffer.
 
-     <br><dt><code>-H</code><dt><code>--smart-home</code><dd>Normally, when you press the home key, the cursor moves to the beginning
-of the line, and if you press it again, it remains there. With this
-option, if the cursor is at the beginning of the line and you press
-home, the cursor moves to the first non-blank character.
+     <br><dt><code>-H</code><dt><code>--smart-home</code><dd>Normally, when you press the &lt;Home&gt; key, the cursor moves to the
+beginning of the line, and if you press it again, it remains there. With
+this option, if the cursor is at the beginning of the line and you press
+&lt;Home&gt;, the cursor moves to the first non-blank character.
 
      <br><dt><code>-i</code><dt><code>--ignore-case</code><dd>Search in moe is case sensitive by default. With this option you can
 make it case insensitive by default.
@@ -246,12 +340,12 @@ continue the search from the beginning of the buffer.
 operations, like copy or move. This mode won't work properly if there
 are &lt;Tab&gt; characters in or at the left of the block.
 
-     <pre class="sp">
-     
-     </pre>
-     Moe also supports the following file options:
+   </dl>
 
-     <br><dt><code>-a</code><dt><code>--auto-indent</code><dd>When auto indent is enabled and you press enter, or the text wraps at
+   <p>Moe also supports the following file options:
+
+     <dl>
+<dt><code>-a</code><dt><code>--auto-indent</code><dd>When auto indent is enabled and you press enter, or the text wraps at
 the end of a line, the cursor moves under the first non-blank character
 of the previous line instead of at the beginning of the line.
 
@@ -268,19 +362,20 @@ at end of line.
      <br><dt><code>-w</code><dt><code>--word-wrap</code><dd>Automatically passes the current word to the next line when you type
 past the right margin.
 
+     <br><dt><code>-2</code><dt><code>--two-spaces</code><dd>Make '<samp><span class="samp">reformat paragraph</span></samp>' put two spaces after period. See <a href="#reformat-paragraph">reformat paragraph</a>.
+
    </dl>
 
    <p>Numbers given as arguments to command line options or editor commands
-(line, column, offset, etc) may be expressed as decimal, hexadecimal or
+(line, column, offset, etc) may be expressed as decimal, hexadecimal, or
 octal values (using the same syntax as integer constants in C++).
 
    <pre class="sp">
 
 </pre>
-Exit status: 0 for a normal exit, 1 for environmental problems (file not
-found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or invalid
-input file, 3 for an internal consistency error (eg, bug) which caused moe
-to panic.
+Exit status: 0 for a normal exit, 1 for environmental problems (invalid
+flags, I/O errors, etc), 2 to indicate an invalid or unreadable input file,
+3 for an internal consistency error (eg, bug) which caused moe to panic.
 
 <div class="node">
 <a name="The-moerc-file"></a>
@@ -291,19 +386,19 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">4 The moerc file</h2>
+<h2 class="chapter">4 The moe configuration file 'moerc'</h2>
 
-<p><a name="index-the-moerc-file-7"></a>
-<samp><span class="file">moerc</span></samp> is the runtime configuration file for moe. In it you may
-define default editor options, default file options and file name
-dependent options. The <samp><span class="file">moerc</span></samp> file is optional; you don't need to
-install it in order to run moe.
+<p><a name="index-moerc-7"></a>
+<samp><span class="file">moerc</span></samp> is the runtime configuration file for moe. In it you may define
+default editor options, default file options, and file name dependent
+options. <samp><span class="file">moerc</span></samp> is optional; you don't need to install it in order to
+run moe.
 
    <p>The options specified in the command line override those specified in
-the <samp><span class="file">moerc</span></samp> file.
+<samp><span class="file">moerc</span></samp>.
 
-   <p>Inside the <samp><span class="file">moerc</span></samp> file, file name dependent options override those
-specified as default file options.
+   <p>Inside <samp><span class="file">moerc</span></samp>, file name dependent options override those specified as
+default file options.
 
    <p>You may copy the system <samp><span class="file">moerc</span></samp> file <samp><span class="file">${sysconfdir}/moerc</span></samp>
 to <samp><span class="file">$HOME/.moerc</span></samp> and customize these options as you like. The file
@@ -320,13 +415,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">5 The status line</h2>
 
-<p><a name="index-the-status-line-8"></a>
+<p><a name="index-status-line-8"></a>
 The status line is a line displayed in inverse video at the top of each
 window, and contains the following information:
 
      <ul>
-<li>The keyboard status. Shows the already typed part of a multy-key
-command. 
+<li>The keyboard status. Shows the part already typed of a multy-key command. 
 <li>The status characters. '<samp><span class="samp">I</span></samp>' for insert mode, '<samp><span class="samp">O</span></samp>' for overwrite
 mode, '<samp><span class="samp">W</span></samp>' for word wrap, '<samp><span class="samp">A</span></samp>' for auto indent, '<samp><span class="samp">R</span></samp>' for
 read-only, and '<samp><span class="samp">X</span></samp>' for rectangular block mode. 
@@ -335,8 +429,9 @@ not yet been named. If the buffer has been modified since it was last
 saved or opened, an asterisk '<samp><span class="samp">*</span></samp>' will be displayed before the name
 and '<samp><span class="samp">(Modified)</span></samp>' will be displayed after the name. 
 <li>The cursor position in the buffer (Line Column). 
-<li>A 24-hour clock (with blinking dots). 
-<li>The help key (or the code of the character under the cursor). 
+<li>A 24-hour clock. 
+<li>The help key, or the code of the character under the cursor, or the line
+position of the cursor in the buffer. 
 </ul>
 
 <div class="node">
@@ -367,11 +462,12 @@ manual is only required for more advanced uses of moe.
 
    <p>The &lt;Control&gt; key is displayed in the online help as '<samp><span class="samp">^</span></samp>', while the
 &lt;Alt&gt; key is displayed as '<samp><span class="samp">^[</span></samp>'. In this manual <kbd>Control-a</kbd> will
-be written as <kbd>C-a</kbd> and <kbd>Alt-a</kbd> as <kbd>A-a</kbd>.
+be written as <kbd>C-a</kbd>, and <kbd>Alt-a</kbd> as <kbd>A-a</kbd>.
 
    <p>Some environments "swallow" the &lt;Alt&gt; key so that it never reaches the
 application. If this happens, press the &lt;Esc&gt; key, then release it and
-press the desired key.
+press the desired key. Alternative key sequences are also provided for
+environments that intercept the function keys.
 
 <ul class="menu">
 <li><a accesskey="1" href="#Function-keys">Function keys</a>:        The most important functions are here
@@ -397,9 +493,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
 <p><a name="index-function-keys-10"></a>
      <dl>
-<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-a</kbd><dt><kbd>C-h</kbd><dd>Show the online help. Press &lt;Page_up&gt; to see the previous help
+<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-h</kbd><dd>Show the online help. Press &lt;Page_up&gt; to see the previous help
 screen or &lt;Page_down&gt; to see the next help screen. Press &lt;F1&gt;,
-<kbd>C-a</kbd> or <kbd>C-h</kbd> again to return to the editor.
+<kbd>C-c</kbd>, or <kbd>C-h</kbd> to return to the editor.
 
      <br><dt><kbd>&lt;F2&gt;</kbd><dd>Save the current buffer to a file, automatically creating any missing
 parent directories. It will ask you to confirm the file name. You may
@@ -408,11 +504,12 @@ of the buffer being edited does not change, and the file permissions are
 copied from the existing file to the new file. Moe makes a backup of a
 file only the first time the file is saved from a given buffer.
 
-     <br><dt><kbd>&lt;F3&gt;</kbd><dd>Load (read) a file in a new buffer. Pressing &lt;Tab&gt; shows the
-contents of the current directory, or completes the name if there is
-only one possible name to show. If the file name starts with <samp><span class="file">~/</span></samp>,
-the <samp><span class="file">~</span></samp> will be expanded to specify your home directory (tilde
-expansion).
+     <br><dt><kbd>&lt;F3&gt;</kbd><dd>Load (read) a file in a new buffer. Pressing &lt;Tab&gt; shows the contents of
+the current directory or a list of files matching the current name, and
+completes the name if there is only one possible name to show. The list of
+matching files is displayed even if there is only one, showing that a
+matching file exists. If the file name starts with <samp><span class="file">~/</span></samp>, the <samp><span class="file">~</span></samp>
+will be expanded to specify your home directory (tilde expansion).
 
      <br><dt><kbd>&lt;F4&gt;</kbd><dd>Toggle between showing only the current window or showing up to the
 selected maximum number of windows.
@@ -437,17 +534,21 @@ and current-buffer options, like auto indent, margins, word wrap, ask
 before exit, etc.
 
      <br><dt><kbd>&lt;F11&gt;</kbd><dd>Show the buffers menu, a list of all the buffers being edited. This menu
-allows you to select a buffer and make it the current buffer. Some
-buffers may appear more that once in the list if they have more than one
-buffer handle. The names of modified buffers are preceded by an asterisk
-'<samp><span class="samp">*</span></samp>'. The names of DOS buffers are preceded by a minus sign
-'<samp><span class="samp">-</span></samp>'. The names of modified DOS buffers are preceded by a plus sign
-'<samp><span class="samp">+</span></samp>'.
+allows you to select a buffer and make it the current buffer. Some buffers
+may appear more that once in the list if they have more than one buffer
+handle. The names of modified buffers are preceded by an asterisk '<samp><span class="samp">*</span></samp>'. 
+The names of DOS buffers are preceded by a minus sign '<samp><span class="samp">-</span></samp>'. The names of
+modified DOS buffers are preceded by a plus sign '<samp><span class="samp">+</span></samp>'.
 
      <br><dt><kbd>&lt;F12&gt;</kbd><dd>Select the last buffer handle where you pressed &lt;F12&gt; and make its
-buffer the current buffer. This allows you to switch between two
-buffers, or between two places of the same buffer, by repeatedly
-pressing &lt;F12&gt;.
+buffer the current buffer. This allows you to switch between two buffers, or
+between two places of the same buffer, by repeatedly pressing &lt;F12&gt;.
+
+     <br><dt><kbd>C-a 0..9ab</kbd><dd>(<kbd>Control-a</kbd> followed by a digit from 0 to 9, or a or b). 
+Provide an alternative access to function keys on those operating systems
+and terminal emulators that intercept the function keys. <kbd>C-a 1</kbd> to
+<kbd>C-a 9</kbd> work as &lt;F1&gt; to &lt;F9&gt;. <kbd>C-a 0</kbd>, <kbd>C-a a</kbd>, and
+<kbd>C-a b</kbd> work as &lt;F10&gt;, &lt;F11&gt;, and &lt;F12&gt; respectively.
 
    </dl>
 
@@ -493,7 +594,7 @@ set and is in the current buffer.
 
      <br><dt><kbd>A-f</kbd><dd>Goto matching delimiter. Move cursor to the matching '<samp><span class="samp">(</span></samp>', '<samp><span class="samp">[</span></samp>',
 '<samp><span class="samp">{</span></samp>', '<samp><span class="samp">&lt;</span></samp>', '<samp><span class="samp">)</span></samp>', '<samp><span class="samp">]</span></samp>', '<samp><span class="samp">}</span></samp>', '<samp><span class="samp">&gt;</span></samp>', '<samp><span class="samp">"</span></samp>',
-'<samp><span class="samp">'</span></samp>', '<samp><span class="samp">`</span></samp>', '<samp><span class="samp">/*</span></samp>' or '<samp><span class="samp">*/</span></samp>'. Default movement is forward
+'<samp><span class="samp">'</span></samp>', '<samp><span class="samp">`</span></samp>', '<samp><span class="samp">/*</span></samp>', or '<samp><span class="samp">*/</span></samp>'. Default movement is forward
 for undirected delimiters. If the cursor is not on a valid delimiter,
 moe tries to guess what delimiter to match.
 
@@ -543,7 +644,7 @@ them. This inserts the characters you type into the buffer at the cursor.
 
    <p>The &lt;Backspace&gt; key deletes the character preceding the cursor,
 while the &lt;Delete&gt; key deletes the character at cursor. You can
-delete a whole line with the <kbd>C-y</kbd> command.
+delete a whole line with the command <kbd>C-y</kbd>.
 
    <p>The &lt;Return&gt; key inserts a newline character in the buffer. If the
 cursor is in the middle of a line, &lt;Return&gt; splits the line.
@@ -554,8 +655,8 @@ from the command line when invoking moe.
 
    <p>If you prefer to have text characters replace (overwrite) existing ones
 rather than being inserted among them, you can activate overwrite mode
-pressing the &lt;Insert&gt; key. Pressing again the &lt;Insert&gt; key
-activates the normal insert mode.
+pressing the &lt;Insert&gt; key. Pressing &lt;Insert&gt; again, returns to
+normal insert mode.
 
    <p>To insert a control or special character in the buffer, use the command
 <kbd>C-p</kbd>. It will prompt for a character code in a number of formats
@@ -573,14 +674,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 <h3 class="section">6.4 Searching and replacing text</h3>
 
 <p><a name="index-search-13"></a>
-The <kbd>C-f</kbd> command enters search mode. It will prompt for the text to
-be searched for (the search string). The &lt;F9&gt; key will copy the
-selected block in the string being entered. &lt;F9&gt; may be also used
-when entering the replacement text.
+The command <kbd>C-f</kbd> enters search mode. It will prompt for the text to be
+searched for (the search string). The function key &lt;F9&gt; will copy the
+selected block in the string being entered. &lt;F9&gt; may be also used when
+entering the replacement text.
 
-<p class="noindent">The <kbd>C-g</kbd> command repeats the previous search or replace.
+<p class="noindent">The command <kbd>C-g</kbd> repeats the previous search or replace.
 
-<p class="noindent">The <kbd>C-w</kbd> command searchs for the word at the cursor.
+<p class="noindent">The command <kbd>C-w</kbd> searchs for the word at the cursor.
 
    <p>After entering the text to be searched, moe will prompt for search
 options. You may just hit &lt;Return&gt; to search forward with default
@@ -644,7 +745,7 @@ includes nested parentheses.
 
      <br><dt><kbd>\+</kbd><dd>Matches zero or more instances of the character inmediately following
 the '<samp><span class="samp">+</span></samp>'. For example, '<samp><span class="samp">\+b</span></samp>' will match any number of '<samp><span class="samp">b</span></samp>'s
-(including no '<samp><span class="samp">b</span></samp>'s). '<samp><span class="samp">\+</span></samp>' may precede '<samp><span class="samp">\[..]</span></samp>', '<samp><span class="samp">\w</span></samp>'
+(including no '<samp><span class="samp">b</span></samp>'s). '<samp><span class="samp">\+</span></samp>' may precede '<samp><span class="samp">\[..]</span></samp>', '<samp><span class="samp">\w</span></samp>',
 or '<samp><span class="samp">\W</span></samp>', matching any number of characters from those in set
 (including the empty string). '<samp><span class="samp">\+</span></samp>' may precede itself any number of
 times, matching N-1 or more instances of the character inmediately
@@ -668,7 +769,12 @@ will match an '<samp><span class="samp">a</span></samp>' followed by any number 
 characters. For example, '<samp><span class="samp">a\Sb</span></samp>' will match an '<samp><span class="samp">a</span></samp>' followed by
 any positive number of whitespace characters and then a '<samp><span class="samp">b</span></samp>'.
 
-     <br><dt><kbd>\w</kbd><dd>Matches any word-constituent character (letters, digits and the
+     <br><dt><kbd>\T</kbd><dd>Matches trailing whitespace. (A sequence of spaces, tabs, and no-break
+spaces at the end of a line of text). It is equivalent to
+'<samp><span class="samp">\+\+\[&nbsp;\t\xA0]\$</span></samp>'<!-- /@w -->, but faster. It comes in handy to remove
+unwanted trailing whitespace. (Replace '<samp><span class="samp">\T</span></samp>' with nothing).
+
+     <br><dt><kbd>\w</kbd><dd>Matches any word-constituent character (letters, digits, and the
 underscore) of the ISO-8859-15 or ISO-8859-1 character encodings. Other
 ISO-8859 encodings are not supported by this command.
 
@@ -688,9 +794,8 @@ matches '<samp><span class="samp">foo</span></samp>' on a line by itself.
 <dt><kbd>\&amp;</kbd><dd>This is replaced with the text which matched the search string. For
 example, '<samp><span class="samp">(\&amp;)</span></samp>' will place parentheses around the matched text.
 
-     <br><dt><kbd>\c</kbd><dd>This is replaced with the text which matched the search string
-capitalized; the first letter of each word is uppercased and the rest
-are lowercased.
+     <br><dt><kbd>\c</kbd><dd>This is replaced with the text which matched the search string capitalized;
+the first letter of each word is uppercased and the rest are lowercased.
 
      <br><dt><kbd>\l</kbd><dd>This is replaced with the text which matched the search string converted
 to lowercase. For example, '<samp><span class="samp">(\l)</span></samp>' will convert to lowercase the
@@ -735,8 +840,7 @@ already marked. If pressed in an existing block, unmarks it.
      <br><dt><kbd>C-k c</kbd><dd>Copy the block at the cursor. The text inside the original block remains
 unchanged.
 
-     <br><dt><kbd>C-k m</kbd><dd>Move the block at the cursor. The text inside the original block is
-deleted.
+     <br><dt><kbd>C-k m</kbd><dd>Move the block at the cursor. The text inside the original block is deleted.
 
      <br><dt><kbd>C-k y</kbd><dd>Delete the text in the block.
 
@@ -783,7 +887,7 @@ moved to the invalid character.
 its corresponding UTF-8-encoded text. Other ISO-8859 encodings are not
 supported by this command. If the text in the block is already valid
 UTF-8, encoding is not performed to avoid double UTF-8 encoding. If
-'<samp><span class="samp">encode to UTF-8</span></samp>' is issued a second time and any character code
+'<samp><span class="samp">encode to UTF-8</span></samp>' is issued a second time and any byte value
 larger than 127 is found, the encoding is performed unconditionally.
 
      <p><a name="decode-UTF_002d8"></a><br><dt><kbd>C-o 8</kbd><dd>Decode UTF-8. Replace UTF-8-encoded text in the block with its
@@ -863,36 +967,37 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
 <p><a name="index-info-commands-17"></a>
      <dl>
-<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-a</kbd><dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
+<dt><kbd>&lt;F1&gt;</kbd><dt><kbd>C-a 1</kbd><dt><kbd>C-h</kbd><dd>Show the online help. See <a href="#Function-keys">Function keys</a>.
 
      <br><dt><kbd>A-i</kbd><dd>(Show character info). Show the line, position in line, position in
-buffer (offset and percent of buffer size) and code of the character at
+buffer (offset and percent of buffer size), and code of the character at
 the cursor. (The '<samp><span class="samp">position in line</span></samp>' may differ from the column
 shown in the status line because of &lt;Tab&gt; characters in the line).
 
-     <br><dt><kbd>A-t</kbd><dd>(Show UTF-8 code). Show the UTF-8 code of the multibyte character at the
-cursor. If the code is valid, the cursor is moved to the first byte of
-the character.
+     <br><dt><kbd>A-t</kbd><dd>(Show UTF-8 code). Show the UTF-8 code of the (possibly multibyte) character
+at the cursor. If the code is valid, the cursor is moved to the first byte
+of the character.
 
      <br><dt><kbd>C-s 2</kbd><dt><kbd>C-s 4</kbd><dt><kbd>C-s 8</kbd><dd>(Show little-endian multibyte value). Show the little-endian value of a
-sequence of 2, 4 or 8 bytes in decimal and hexadecimal. This is useful
+sequence of 2, 4, or 8 bytes in decimal and hexadecimal. This is useful
 for example to show things like the CRC or the file size coded in gzip
 and lzip files.
 
      <br><dt><kbd>C-s &lt;F2&gt;</kbd><dt><kbd>C-s &lt;F4&gt;</kbd><dt><kbd>C-s &lt;F8&gt;</kbd><dd>(Show big-endian multibyte value). Show the big-endian value of a
-sequence of 2, 4 or 8 bytes in decimal and hexadecimal.
+sequence of 2, 4, or 8 bytes in decimal and hexadecimal.
+
+     <br><dt><kbd>C-s b</kbd><dd>(Toggle clock blinking). Enable/disable blinking of the clock dots.
 
      <br><dt><kbd>C-s c</kbd><dd>(Show character code). Show on the status line the code of the character
 at the cursor. Repeat the command to revert to normal. This command
-overrides the <kbd>C-s p</kbd> command below.
+overrides the command <kbd>C-s p</kbd> below.
 
-     <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed and total
-buffers being edited. Really it shows the number of buffer handles, so
-the numbers may be greater than expected.
+     <br><dt><kbd>C-s g</kbd><dd>(Show global status). Show the number of modified, unnamed, and total
+buffers being edited.
 
      <br><dt><kbd>C-s p</kbd><dd>(Show line position in buffer). Show on the status line the percent
 position of the current line in the buffer. Repeat the command to revert
-to normal. This command overrides the <kbd>C-s c</kbd> command above.
+to normal. This command overrides the command <kbd>C-s c</kbd> above.
 
      <br><dt><kbd>C-s v</kbd><dd>Show moe's version.
 
@@ -910,12 +1015,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Keyboard-commands">Keyboard commands</
 
 <p><a name="index-other-commands-18"></a>
      <dl>
-<dt><kbd>C-b</kbd><dd>Reformat paragraph. Break it up into lines that fit between the margins. 
+<a name="reformat-paragraph"></a><dt><kbd>C-b</kbd><dd>Reformat paragraph. Break it up into lines that fit between the margins. 
 If the cursor is situated to the right of the left margin, this command
 uses the cursor column as the left margin.
 
      <br><dt><kbd>C-p</kbd><dd>Insert a control or special character in the buffer. It also accepts an
-arbitrarily large number in decimal ([1-9]...), hexadecimal (0x...) or
+arbitrarily large number in decimal ([1-9]...), hexadecimal (0x...), or
 octal (0...), and inserts it as a little-endian sequence of binary
 characters. If the number is followed by '<samp><span class="samp">+</span></samp>', a big-endian sequence
 is inserted instead.
@@ -932,7 +1037,7 @@ bookmarks, etc.
      <br><dt><kbd>C-o s</kbd><dd>Split the current window into two. The resulting windows share the same
 buffer. To undo the split just close one of the two windows with <kbd>C-c</kbd>.
 
-     <br><dt><kbd>C-q &lt;F2&gt;</kbd><dd>Save to files all the named buffers that have been modified. A named
+     <br><dt><kbd>C-q &lt;F2&gt;</kbd><dt><kbd>C-q 2</kbd><dd>Save to files all the named buffers that have been modified. A named
 buffer is one with an associated file name. This function is very useful
 if you do a global replace on many buffers at once and want to save all
 the modified buffers without pressing &lt;F2&gt; a lot of times.
@@ -940,7 +1045,8 @@ the modified buffers without pressing &lt;F2&gt; a lot of times.
      <br><dt><kbd>C-q u</kbd><dd>Update copyright notices in all buffers, inserting the current year in
 the list of years and joining the groups of 3 or more consecutive years
 in ranges. For this to work, the copyright notice format should be
-'<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;&lt;copyright_holder_name&gt;</span></samp>'<!-- /@w -->, and the year numbers must have four digits. 
+'<samp><span class="samp">Copyright&nbsp;&lt;optional_text&gt;&nbsp;&lt;list_of_years&gt;&nbsp;&lt;copyright_holder_name&gt;</span></samp>'<!-- /@w -->,
+and the year numbers must have four digits. 
 Year numbers separated by a comma '<samp><span class="samp">,</span></samp>' are counted individually. 
 Year numbers separated by a hyphen '<samp><span class="samp">-</span></samp>' are counted as a range.
 
@@ -959,22 +1065,23 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p><a name="index-romanization-19"></a>
 The lack of a common language is the most divisive border.<br>
+The first step towards mutual comprehension is a common language.<br>
 The first step towards a common language is a common alphabet.
 
    <p>Romanization is the process of transliterating a language from its
 (non-Latin) script into the Latin script. It can be useful when the
-capability of rendering the non-Latin script is not available. It can
-also save space when using UTF-8. For example, writting a text with
-Cyrillic characters needs twice the bytes than the same text written
-with Latin characters.
+capability of rendering the non-Latin script is not available. It can also
+save space when the non-Latin script requires multibyte UTF-8 characters. 
+For example, writting a text with Cyrillic characters needs twice the bytes
+than the same text written with Latin characters.
 
-   <p>The '<samp><span class="samp">decode UTF-8</span></samp>' command (see <a href="#decode-UTF_002d8">decode UTF-8</a>) performs a
-context independent transliteration of Cyrillic, Greek, Armenian and
-Georgian scripts, in UTF-8 format, into Latin script in ISO-8859-15
-format. If the transliteration is needed in UTF-8 format, it can be then
-encoded with the '<samp><span class="samp">encode to UTF-8</span></samp>' command (see <a href="#encode-to-UTF_002d8">encode to UTF-8</a>).
+   <p>The command '<samp><span class="samp">decode UTF-8</span></samp>' (see <a href="#decode-UTF_002d8">decode UTF-8</a>) performs a context
+independent transliteration of Cyrillic, Greek, Armenian, and Georgian
+scripts, in UTF-8 format, into Latin script in ISO-8859-15 format. If the
+transliteration is needed in UTF-8 format, it can be then encoded with the
+command '<samp><span class="samp">encode to UTF-8</span></samp>' (see <a href="#encode-to-UTF_002d8">encode to UTF-8</a>).
 
-   <p>The '<samp><span class="samp">decode UTF-8</span></samp>' command also removes unsupported diacritics
+   <p>The command '<samp><span class="samp">decode UTF-8</span></samp>' also removes unsupported diacritics
 (carons, macrons, breves, cedillas, ogoneks, strokes, dots above and
 inside) from Latin letters.
 
@@ -994,9 +1101,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p><a name="index-emergency-save-20"></a><a name="index-binary-files-21"></a><a name="index-DOS-files-22"></a>
      <dl>
-<dt>Emergency save<dd>When moe is interrupted by an abnormal event (a SIGTERM signal for
-example), it will try to save all modified buffers in a file named
-<samp><span class="file">DEADMOE</span></samp> in the current directory.
+<dt>Emergency save<dd>When moe is interrupted by an abnormal event (a SIGTERM signal for example),
+it will try to save all modified non-empty buffers in a file named
+<samp><span class="file">DEADMOE</span></samp> in the current directory. Each buffer is saved only once even
+if it has multiple handles.
 
      <br><dt>Basic '<samp><span class="samp">less</span></samp>' emulation<dd>In read-only buffers the space bar moves forward leaving 1 line of
 context, '<samp><span class="samp">/</span></samp>' acts as '<samp><span class="samp">Find</span></samp>', '<samp><span class="samp">n</span></samp>' as '<samp><span class="samp">Find&nbsp;next</span></samp>'<!-- /@w -->,
@@ -1006,11 +1114,12 @@ and '<samp><span class="samp">N</span></samp>' as '<samp><span class="samp">Find
 somewhat inconvenient way. If the file does not contain any newline
 character, all of it will be loaded as a single line.
 
-     <br><dt>DOS files<dd>If moe detects at load time that all the lines of a file are terminated
-by a CR/LF pair, assumes it is a DOS file and removes all the CRs. The
-CRs are restored later when saving the buffer to a file. If some, but
-not all, of the lines are CR/LF terminated, no action is taken and CRs
-are shown as control characters on the screen.
+     <br><dt>DOS files<dd>If moe detects at load time that all the complete lines of a file are
+terminated by a CR/LF (carriage return/line feed) pair, assumes it is a DOS
+file and removes all the CRs. The CRs are restored later when saving the
+buffer to a file. If at least one CR is missing, no action is taken and CRs
+are shown as control characters on the screen. If the last line is
+unterminated, it is left as-is.
 
    </dl>
 
@@ -1033,7 +1142,7 @@ eternity, if not longer.
 
    <p>If you find a bug in GNU moe, please send electronic mail to
 <a href="mailto:bug-moe@gnu.org">bug-moe@gnu.org</a>. Include the version number, which you can
-find by running <code>moe&nbsp;--version</code><!-- /@w -->.
+find by running '<samp><span class="samp">moe&nbsp;--version</span></samp>'<!-- /@w -->.
 
 <div class="node">
 <a name="Concept-index"></a>
@@ -1060,14 +1169,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-introduction-1">introduction</a>: <a href="#Introduction">Introduction</a></li>
 <li><a href="#index-invoking-moe-3">invoking moe</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 <li><a href="#index-keyboard-commands-9">keyboard commands</a>: <a href="#Keyboard-commands">Keyboard commands</a></li>
+<li><a href="#index-moerc-7">moerc</a>: <a href="#The-moerc-file">The moerc file</a></li>
 <li><a href="#index-moving-around-11">moving around</a>: <a href="#Moving-around">Moving around</a></li>
 <li><a href="#index-options-4">options</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 <li><a href="#index-other-commands-18">other commands</a>: <a href="#Other-commands">Other commands</a></li>
 <li><a href="#index-regular-expressions-14">regular expressions</a>: <a href="#Regexps">Regexps</a></li>
 <li><a href="#index-romanization-19">romanization</a>: <a href="#Romanization">Romanization</a></li>
 <li><a href="#index-search-13">search</a>: <a href="#Search">Search</a></li>
-<li><a href="#index-the-moerc-file-7">the moerc file</a>: <a href="#The-moerc-file">The moerc file</a></li>
-<li><a href="#index-the-status-line-8">the status line</a>: <a href="#The-status-line">The status line</a></li>
+<li><a href="#index-status-line-8">status line</a>: <a href="#The-status-line">The status line</a></li>
 <li><a href="#index-usage-5">usage</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 <li><a href="#index-version-6">version</a>: <a href="#Invoking-moe">Invoking moe</a></li>
 </ul></body></html>

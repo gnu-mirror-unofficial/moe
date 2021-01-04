@@ -30,47 +30,58 @@ compleción de nombres de ficheros, navegador de directorios, eliminación
 de duplicados de las historias de comandos, emparejamiento de
 delimitadores, conversión de texto de y a UTF-8, romanización, etc.
 <p>
+Moe respeta tu trabajo. Por defecto moe no añadirá, cambiará, ni borrará
+automáticamente ni un byte en tus ficheros. Moe es un editor WYTIWYG (what
+you type is what you get)(lo que tecleas es lo que obtienes).
+<p>
 Moe puede editar fácilmente miles de ficheros al mismo tiempo.
 <p>
-Moe usa ISO-8859-15 en lugar de UTF-8 porque un conjunto de caracteres
-de 8 bits (combinado con romanización si es necesario) puede expresar un
-significado de forma más segura y eficiente que UTF-8.
+Moe intenta racionalizar los comandos del teclado. La tecla &lt;Alt&gt; se
+usa para comandos inofensivos como los movimientos del cursor. La tecla
+&lt;Control&gt; se usa para comandos mas "peligrosos" como copiar bloques de
+texto, borrar lineas, o salir del programa. La tecla &lt;Tab&gt; se usa para
+la compleción de nombres de fichero y para mostrar y ocultar el navegador
+del directorio cuando moe pide un nombre de fichero. En cualquier caso, la
+capacidad ilimitada de moe para deshacer y rehacer cambios hace bastante
+difícil causar accidentalmente un daño irreparable a tus ficheros.
 <p>
-UTF-8 es una gran herramienta para escribir libros de matemáticas o para
+Moe usa las teclas de función, de modo que los comandos mas frecuentes se
+puedan pulsar con solo un dedo. La tecla de función &lt;F1&gt; muestra la
+ayuda en línea, y &lt;F10&gt; permite cambiar las opciones. La ayuda en
+línea y alguna experiencia con editores de texto es todo lo que se necesita
+para empezar a usar moe. Leer el manual sólo es necesario para usos más
+avanzados de moe.
+</p>
+
+<h3>Por qué moe no usa UTF-8 u otra forma de Unicode?</h3>
+<p>
+Moe usa ISO-8859-15 en lugar de Unicode porque un conjunto de caracteres
+de 8 bits (combinado con romanización si es necesario) puede expresar un
+significado de forma más segura y eficiente que Unicode.
+<p>
+Unicode es una gran herramienta para escribir libros de matemáticas o para
 mezclar griego con chino en el mismo documento. Pero para muchas otras
 tareas cotidianas de computación y comunicación, un código de 8 bits
 como ISO-8859-15 es mucho más práctico, eficiente y seguro. En
-ISO-8859-15 no existen caracteres "inválidos" o "fuera de rango".
+ISO-8859-15 no existen caracteres 'ambiguos,' 'inválidos', o 'fuera de rango'.
 <p>
-UTF-8 es adecuado para documentos cuyo aspecto es importante pero que no
+Unicode es adecuado para documentos cuyo aspecto es importante pero que no
 necesitan ser sometidos a análisis o búsqueda automáticos. UTF-8 no es
-especialmente adecuado para nombres de fichero, ficheros de configuración o
+especialmente adecuado para nombres de fichero, ficheros de configuración, o
 código fuente en C++. Los nombres de fichero que contienen caracteres UTF-8
 inválidos reducen la fiabilidad de las operaciones de archivado y de
-sistemas de ficheros. UTF-8 dificulta mucho el análisis (y puede incluso
+sistemas de ficheros. Unicode dificulta mucho el análisis (y puede incluso
 llegar a ser un riesgo de seguridad) al proporcionar múltiples variaciones
 de aspecto similar de caracteres básicos, tanto alfabéticos como de
-puntuación y de entrecomillado. UTF-8 también hace las búsquedas difíciles e
-inciertas. Por ejemplo, la búsqueda de una palabra como "fichero" en un
-documento UTF-8 puede fallar si el documento usa el carácter compuesto 'fi'
-en lugar de la cadena de caracteres "fi".
+puntuación y de entrecomillado. Unicode también hace las búsquedas difíciles
+e inciertas. Por ejemplo, la búsqueda de una palabra como "fichero" en un
+documento Unicode puede fallar si el documento usa el carácter compuesto
+'fi' en lugar de la cadena de caracteres "fi".
 <p>
-Moe intenta racionalizar los comandos del teclado. La tecla Alt se usa
-para comandos inofensivos como los movimientos del cursor. La tecla
-Control se usa para comandos mas "peligrosos" como copiar bloques de
-texto, borrar lineas, o salir del programa. La tecla Tab se usa para la
-compleción de nombres de fichero y para mostrar y ocultar el navegador
-del directorio cuando moe pide un nombre de fichero. En cualquier caso,
-la capacidad ilimitada de moe para deshacer y rehacer cambios hace
-bastante difícil causar accidentalmente un daño irreparable a tus
-ficheros.
-<p>
-Moe usa las teclas de función, de modo que los comandos mas frecuentes
-se puedan pulsar con solo un dedo. La tecla de función F1 muestra la
-ayuda en línea, y F10 permite cambiar las opciones. La ayuda en línea y
-alguna experiencia con editores de texto es todo lo que se necesita para
-empezar a usar moe. Leer el manual sólo es necesario para usos más
-avanzados de moe.
+En mi opinión, Unicode no debería ser usado en textos que deban ser
+interpretados por un programa.
+El <a href="manual/moe_manual.html#Introduction">manual en línea</a> expone
+algunos de los inconvenientes y peligros de usar Unicode (en inglés).
 </p>
 
 <h2>Documentación</h2>
@@ -84,7 +95,7 @@ Se puede acceder al manual de moe desde
 <a href="manual/moe_manual.html">aquí</a>.
 </p>
 
-<h2>Descargar (Download) moe</h2>
+<h2>Descargar moe</h2>
 <p>
 La última versión publicada de GNU moe se puede encontrar en
 <a href="http://ftpmirror.gnu.org/moe/">http://ftpmirror.gnu.org/moe/</a>
@@ -157,13 +168,15 @@ envía tus comentarios sobre las páginas de www.gnu.org en general a
 envía las demás cuestiones a
 <a href="mailto:gnu@gnu.org"><em>gnu@gnu.org</em></a>.
 <p>
-Copyright &copy; 2020 Free Software Foundation, Inc., 51 Franklin St, Fifth
+Copyright &copy; 2021 Free Software Foundation, Inc., 51 Franklin St, Fifth
 Floor, Boston, MA 02110-1301 USA
 <p>
 Se permite la copia literal y la distribución de éste artículo en su
 totalidad a través de cualquier medio, siempre que se mantenga esta nota.
 <p>
-Updated: $Date: 2020/02/21 18:33:17 $ $Author: antonio $
+Updated: $Date: 2021/01/04 00:16:53 $ $Author: antonio $
+<p>
+Esta página no usa javascript.
 </p>
 <hr>
 </body>
